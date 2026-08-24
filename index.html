@@ -331,52 +331,51 @@
         .features-list li i.fa-tiktok { color: #000; }
         .features-list li i.fa-bolt { color: #f59e0b; }
 
-        /* IPTV & Apps Section */
+        /* IPTV & Apps Section - Redesigned */
         .iptv-section {
             background: linear-gradient(135deg, #0f172a, #1e1b4b);
             color: #fff;
             border-radius: 24px;
-            padding: 60px 45px;
+            padding: 60px 40px;
             box-shadow: 0 20px 40px rgba(0,0,0,0.2);
         }
         .iptv-grid {
             display: grid;
-            grid-template-columns: 1.2fr 0.8fr;
-            gap: 40px;
-            align-items: center;
-        }
-        .iptv-content h3 {
-            font-size: 28px;
-            margin-bottom: 15px;
-            color: #818cf8;
-        }
-        .iptv-content p {
-            font-size: 16px;
-            line-height: 1.8;
-            color: #94a3b8;
-            margin-bottom: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
         }
         .app-download-box {
-            background: rgba(255, 255, 255, 0.04);
-            padding: 25px;
-            border-radius: 18px;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 30px 25px;
+            border-radius: 20px;
             text-align: center;
-            border: 1px solid rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             transition: 0.3s;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
         .app-download-box:hover {
             border-color: var(--primary);
-            transform: translateY(-5px);
+            transform: translateY(-6px);
+            background: rgba(255, 255, 255, 0.08);
         }
         .app-download-box i {
-            font-size: 40px;
+            font-size: 45px;
             color: #818cf8;
-            margin-bottom: 12px;
+            margin-bottom: 15px;
         }
         .app-download-box h4 {
-            font-size: 18px;
-            margin-bottom: 15px;
+            font-size: 20px;
+            margin-bottom: 12px;
             color: #fff;
+        }
+        .app-download-box p {
+            font-size: 14px;
+            color: #94a3b8;
+            line-height: 1.6;
+            margin-bottom: 20px;
         }
 
         /* Payment & Contact Section */
@@ -485,7 +484,7 @@
             z-index: 99999;
         }
         #toast-notification.show {
-            visibility: hidden; /* handled by class */
+            visibility: hidden; 
             opacity: 1;
         }
 
@@ -526,7 +525,6 @@
         @media(max-width: 900px) {
             nav { display: none; }
             .menu-toggle { display: block; }
-            .iptv-grid { grid-template-columns: 1fr; }
             .hero-content h1 { font-size: 28px; }
             .iptv-section { padding: 40px 20px; }
         }
@@ -770,26 +768,33 @@
         </div>
     </section>
 
-    <!-- Live TV & Apps Section -->
+    <!-- Live TV & Apps Section (Redesigned with Televizor App Section) -->
     <section id="iptv" style="padding-top: 0;">
         <div class="iptv-section">
-            <h2 class="section-title" style="color: #fff; margin-bottom: 30px;">লাইভ টিভি ও এন্টারটেইনমেন্ট সার্ভার</h2>
+            <h2 class="section-title" style="color: #fff; margin-bottom: 20px;">লাইভ টিভি ও অ্যাপস জোন</h2>
+            <p style="text-align: center; color: #94a3b8; max-width: 700px; margin: 0 auto 40px auto; font-size: 15px;">আমাদের হাই-স্পিড ব্রডব্যান্ড ইন্টারনেটের সাথে আপনার মোবাইল কিংবা স্মার্ট টিভিতে সম্পূর্ণ বাফারিং-মুক্তভাবে এইচডি লাইভ টিভি ও এন্টারটেইনমেন্ট উপভোগ করুন।</p>
+            
             <div class="iptv-grid">
-                <div class="iptv-content">
-                    <h3>এইচডি লাইভ টিভি এবং মুভি জোন</h3>
-                    <p>আমাদের হাই-স্পিড ব্রডব্যান্ড ইন্টারনেটের সাথে সম্পূর্ণ ফ্রি উপভোগ করুন ক্রিস্টাল ক্লিয়ার এইচডি লাইভ টিভি ব্রডকাস্ট, জনপ্রিয় সব মুভি এবং বিনোদনমূলক কন্টেন্ট। আমাদের নিজস্ব ডেডিকেটেড এফটিপি (FTP) সার্ভার ও লাইভ টিভি প্ল্যাটফর্মের মাধ্যমে যেকোনো ভিডিও স্ট্রিম করুন সম্পূর্ণ বাফারিং-মুক্তভাবে।</p>
-                    <p style="font-size: 14px; color: #818cf8;"><i class="fa-solid fa-server"></i> FTP Server & Live TV সার্ভার অ্যাক্সেস করতে আপনার লোকাল ব্রাউজার ব্যবহার করুন।</p>
-                </div>
-                <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
-                    <div class="app-download-box">
+                <!-- Mobile App Box -->
+                <div class="app-download-box">
+                    <div>
                         <i class="fa-solid fa-mobile-screen-button"></i>
                         <h4>Mobile App</h4>
-                        <a href="#" class="btn" style="font-size: 13px; padding: 8px 18px;"><i class="fa-solid fa-download"></i> Download</a>
+                        <p>আমাদের অফিসিয়াল অ্যান্ড্রয়েড অ্যাপ ডাউনলোড করে যেকোনো সময় মুভি, এফটিপি ও বিভিন্ন বিনোদনমূলক কন্টেন্ট উপভোগ করুন সরাসরি আপনার ফোনে।</p>
                     </div>
-                    <div class="app-download-box">
+                    <a href="#" class="btn" style="font-size: 14px; padding: 10px 20px; width: 100%; text-align: center;"><i class="fa-solid fa-download"></i> Download App</a>
+                </div>
+
+                <!-- Android TV App (Televizor / Tivimate) Box -->
+                <div class="https://play.google.com/store/apps/details?id=com.ottplay.ottplay" style="border-color: rgba(99, 102, 241, 0.4); background: rgba(99, 102, 241, 0.05);">
+                    <div>
                         <i class="fa-solid fa-tv"></i>
-                        <h4>Android TV App</h4>
-                        <a href="#" class="btn" style="font-size: 13px; padding: 8px 18px;"><i class="fa-solid fa-download"></i> Download</a>
+                        <h4>Smart TV App (Televizor)</h4>
+                        <p>টেলিভিশনে লাইভ টিভি দেখার জন্য প্রফেশনাল <strong>Televizor</strong> অ্যাপটি ডাউনলোড করুন। অ্যাপ ইনস্টল করার পর আপনার নির্দিষ্ট লিংক সেটআপ করতে এবং চ্যানেল চালু করতে অনুগ্রহ করে আমাদের <strong>আইএসপি (ISP) হেল্পলাইনে যোগাযোগ করুন</strong>।</p>
+                    </div>
+                    <div style="display: flex; flex-direction: column; gap: 10px; width: 100%;">
+                        <a href="https://play.google.com/store/apps/details?id=com.televizor" target="_blank" class="btn" style="font-size: 14px; padding: 10px 20px; width: 100%; text-align: center;"><i class="fa-solid fa-download"></i> Download Televizor</a>
+                        <a href="#helpline" class="copy-btn" style="padding: 10px; text-decoration: none; text-align: center; border-radius: 50px;">📞 লাইন অ্যাক্টিভ করতে যোগাযোগ করুন</a>
                     </div>
                 </div>
             </div>
@@ -869,6 +874,7 @@
         let currentSlide = 0;
         const slides = document.querySelectorAll('.slide');
         
+        // Ensure active state starts clean
         function nextSlide() {
             slides[currentSlide].classList.remove('active');
             currentSlide = (currentSlide + 1) % slides.length;
@@ -880,4 +886,3 @@
 
 </body>
 </html>
-
