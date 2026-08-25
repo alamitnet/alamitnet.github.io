@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="bn">
+<html lang="bn" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,23 +9,41 @@
     <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #6366f1;
-            --secondary: #a855f7;
-            --dark: #090d16;
-            --light: #f3f4f6;
+            --primary: #0284c7;
+            --secondary: #38bdf8;
+            --dark: #0f172a;
+            --light: #f0f9ff;
             --accent: #10b981;
-            --text-color: #1f2937;
+            --text-color: #334155;
             --card-bg: #ffffff;
+            --header-bg: rgba(255, 255, 255, 0.9);
+            --header-text: #0f172a;
+            --border-color: #e2e8f0;
             --bkash: #e2136e;
             --nagad: #f16922;
             --rocket: #8c349b;
         }
+
+        [data-theme="dark"] {
+            --primary: #38bdf8;
+            --secondary: #0284c7;
+            --dark: #f8fafc;
+            --light: #0b0f19;
+            --accent: #10b981;
+            --text-color: #cbd5e1;
+            --card-bg: #1e293b;
+            --header-bg: rgba(15, 23, 42, 0.9);
+            --header-text: #f8fafc;
+            --border-color: #334155;
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
             font-family: 'Hind Siliguri', sans-serif;
             scroll-behavior: smooth;
+            transition: background-color 0.3s, color 0.3s, border-color 0.3s;
         }
         body {
             background-color: var(--light);
@@ -39,22 +57,23 @@
             top: 0;
             left: 0;
             width: 100%;
-            background: rgba(9, 13, 22, 0.85);
+            background: var(--header-bg);
             backdrop-filter: blur(12px);
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 18px 6%;
+            padding: 14px 6%;
             z-index: 1000;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            border-bottom: 1px solid var(--border-color);
         }
         .logo {
             font-size: 24px;
             font-weight: 700;
-            color: #fff;
+            color: var(--header-text);
             text-transform: uppercase;
             letter-spacing: 1.5px;
             font-family: 'Poppins', sans-serif;
+            cursor: pointer;
         }
         .logo span {
             background: linear-gradient(135deg, var(--primary), var(--secondary));
@@ -62,72 +81,114 @@
             -webkit-text-fill-color: transparent;
         }
 
-        /* Desktop Nav */
+        /* Desktop Nav - এখন ডেস্কটপে এটি সম্পূর্ণ হাইড থাকবে এবং শুধুমাত্র থ্রি-ডট মেনু ব্যবহার করা হবে */
         nav {
+            display: none !important;
+        }
+
+        /* Theme Toggle Button */
+        .theme-toggle {
+            background: none;
+            border: 2px solid var(--border-color);
+            color: var(--header-text);
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            cursor: pointer;
             display: flex;
-            gap: 30px;
             align-items: center;
-        }
-        nav a {
-            color: #cbd5e1;
-            text-decoration: none;
-            font-weight: 500;
+            justify-content: center;
+            font-size: 16px;
             transition: 0.3s;
-            font-size: 15px;
         }
-        nav a:hover {
+        .theme-toggle:hover {
+            border-color: var(--primary);
             color: var(--primary);
         }
 
-        /* Three Line Menu Toggle */
+        /* Three Line Menu Toggle - সর্বদা দৃশ্যমান থাকবে */
         .menu-toggle {
-            display: none;
-            font-size: 22px;
-            color: #fff;
+            display: flex;
+            font-size: 20px;
+            color: var(--header-text);
             cursor: pointer;
             background: none;
             border: none;
+            width: 38px;
+            height: 38px;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            border: 2px solid var(--border-color);
+            transition: 0.3s;
+        }
+        .menu-toggle:hover {
+            border-color: var(--primary);
+            color: var(--primary);
         }
 
         .dropdown-menu {
             display: none;
             position: absolute;
-            top: 75px;
+            top: 70px;
             right: 6%;
-            background: #0f172a;
-            width: 250px;
+            background: var(--card-bg);
+            width: 260px;
             flex-direction: column;
             border-radius: 14px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
             padding: 15px 0;
             z-index: 1100;
-            border: 1px solid rgba(255,255,255,0.1);
+            border: 1px solid var(--border-color);
         }
         .dropdown-menu a {
-            color: #cbd5e1;
-            padding: 12px 22px;
+            color: var(--text-color);
+            padding: 10px 20px;
             text-decoration: none;
             display: block;
-            font-size: 15px;
+            font-size: 14px;
             transition: 0.3s;
+            cursor: pointer;
         }
         .dropdown-menu a:hover {
-            background: rgba(99, 102, 241, 0.15);
-            color: #fff;
+            background: rgba(2, 132, 199, 0.1);
+            color: var(--primary);
         }
 
-        /* Hero Slider Section */
-        .hero-slider {
-            height: 60vh;
-            margin-top: 65px;
-            position: relative;
-            overflow: hidden;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
+        /* Multi-Page View Control Class */
+        .page-view {
+            display: none;
+            padding-top: 110px;
+            min-height: calc(100vh - 250px);
         }
-        .slide {
+        .page-view.active-page {
+            display: block;
+            animation: fadeInPage 0.4s ease-in-out;
+        }
+        @keyframes fadeInPage {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Optimized Banner Slider */
+        .hero-slider-section {
+            padding: 15px 5%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .banner-container {
+            position: relative;
+            width: 100%;
+            max-width: 950px;
+            height: 320px;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.06);
+            border: 1px solid var(--border-color);
+            background: var(--card-bg);
+        }
+        .banner-slide {
             position: absolute;
             top: 0;
             left: 0;
@@ -135,109 +196,84 @@
             height: 100%;
             background-size: cover;
             background-position: center;
-            display: flex;
-            align-items: center;
-            justify-content: center;
             opacity: 0;
-            transition: opacity 1.2s ease-in-out;
-            z-index: 1;
+            transform: scale(1.05);
+            transition: opacity 0.8s ease-in-out, transform 0.8s ease-in-out;
         }
-        .slide.active {
+        .banner-slide.active {
             opacity: 1;
-            z-index: 2;
+            transform: scale(1);
         }
-        .slide::after {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(135deg, rgba(9, 13, 22, 0.9), rgba(15, 23, 42, 0.8));
+        .banner-dots {
+            display: flex;
+            justify-content: center;
+            gap: 6px;
+            margin-top: 10px;
         }
-        .hero-content {
-            position: relative;
-            z-index: 3;
-            padding: 0 20px;
-            animation: slideUp 1s ease;
+        .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #cbd5e1;
+            cursor: pointer;
+            transition: 0.3s;
         }
-        .hero-content h1 {
-            font-size: 38px;
-            color: #fff;
-            margin-bottom: 15px;
-            font-weight: 700;
-        }
-        .hero-content h1 span {
-            background: linear-gradient(135deg, #818cf8, #c084fc);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        .hero-content p {
-            font-size: 16px;
-            color: #94a3b8;
-            margin-bottom: 25px;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-            line-height: 1.6;
-        }
-        .btn {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: #fff;
-            padding: 12px 28px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 15px;
-            box-shadow: 0 10px 25px rgba(99, 102, 241, 0.4);
-            transition: 0.3s transform, 0.3s box-shadow;
-            display: inline-block;
-        }
-        .btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 30px rgba(99, 102, 241, 0.6);
+        .dot.active {
+            width: 24px;
+            border-radius: 5px;
+            background: var(--primary);
         }
 
         /* Section Global Style */
         section {
-            padding: 80px 8%;
+            padding: 40px 8%;
         }
         .section-title {
             text-align: center;
-            font-size: 34px;
-            margin-bottom: 50px;
+            font-size: 28px;
+            margin-bottom: 40px;
             color: var(--dark);
             font-weight: 700;
             position: relative;
         }
+        @media(max-width: 768px) {
+            .section-title {
+                font-size: 22px;
+            }
+        }
         .section-title::after {
             content: '';
-            width: 60px;
-            height: 4px;
+            width: 50px;
+            height: 3px;
             background: linear-gradient(135deg, var(--primary), var(--secondary));
             position: absolute;
-            bottom: -12px;
+            bottom: -10px;
             left: 50%;
             transform: translateX(-50%);
             border-radius: 2px;
         }
 
-        /* Separate Why Choose Us Section */
+        /* Why Choose Us Section */
         .why-choose-container {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
             gap: 25px;
+            max-width: 1100px;
+            margin: 0 auto;
         }
         .why-choose-card {
             background: var(--card-bg);
             padding: 30px 25px;
-            border-radius: 20px;
+            border-radius: 16px;
             text-align: center;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-            border: 1px solid rgba(0,0,0,0.04);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.03);
+            border: 1px solid var(--border-color);
             transition: 0.3s;
         }
         .why-choose-card:hover {
-            transform: translateY(-6px);
-            border-color: rgba(99, 102, 241, 0.3);
-            box-shadow: 0 15px 35px rgba(99, 102, 241, 0.1);
+            transform: translateY(-5px);
+            border-color: var(--primary);
+            box-shadow: 0 12px 25px rgba(2, 132, 199, 0.1);
         }
         .why-choose-card i {
             font-size: 36px;
@@ -252,239 +288,551 @@
         }
         .why-choose-card p {
             font-size: 14px;
-            color: #6b7280;
+            color: var(--text-color);
             line-height: 1.6;
         }
 
-        /* About Section */
+        /* About Section Styles */
         .about-grid {
             display: grid;
             grid-template-columns: 1fr;
-            gap: 40px;
+            gap: 30px;
             align-items: center;
-            max-width: 800px;
+            max-width: 900px;
             margin: 0 auto;
             text-align: center;
         }
         .about-text p {
-            font-size: 17px;
-            line-height: 1.9;
-            margin-bottom: 20px;
-            color: #4b5563;
+            font-size: 16px;
+            line-height: 1.8;
+            margin-bottom: 15px;
+            color: var(--text-color);
         }
 
-        /* Pricing Section */
+        /* Pricing Section & RGB Glowing Border Animation */
         .pricing-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
             gap: 25px;
+            max-width: 1100px;
+            margin: 0 auto;
         }
+        
+        @keyframes rgbGlow {
+            0% { border-color: #ff0055; box-shadow: 0 0 15px rgba(255, 0, 85, 0.4); }
+            33% { border-color: #00ffcc; box-shadow: 0 0 15px rgba(0, 255, 204, 0.4); }
+            66% { border-color: #7b00ff; box-shadow: 0 0 15px rgba(123, 0, 255, 0.4); }
+            100% { border-color: #ff0055; box-shadow: 0 0 15px rgba(255, 0, 85, 0.4); }
+        }
+
         .price-card {
             background: var(--card-bg);
-            border-radius: 24px;
-            padding: 40px 25px;
+            border-radius: 20px;
+            padding: 35px 25px;
             text-align: center;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-            transition: 0.4s transform, 0.4s box-shadow;
-            border: 1px solid rgba(0,0,0,0.04);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.03);
+            transition: transform 0.3s;
+            border: 2px solid var(--border-color);
             position: relative;
         }
+        
+        .package-slider-outer {
+            position: relative;
+            display: none;
+            width: 100%;
+            max-width: 340px;
+            margin: 0 auto;
+        }
+        .package-slider-container {
+            position: relative;
+            width: 100%;
+            border-radius: 22px;
+            padding: 4px;
+            animation: rgbGlow 4s infinite linear;
+            background: var(--card-bg);
+        }
+        .package-slider-wrapper {
+            display: flex;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            scroll-behavior: smooth;
+            gap: 0;
+            scrollbar-width: none;
+            border-radius: 18px;
+        }
+        .package-slider-wrapper::-webkit-scrollbar {
+            display: none;
+        }
+        .package-slider-wrapper .price-card {
+            min-width: 100%;
+            scroll-snap-align: center;
+            flex-shrink: 0;
+            border: none;
+            box-shadow: none;
+        }
+
+        .slider-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: var(--primary);
+            color: #fff;
+            border: none;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 15px;
+            z-index: 10;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            transition: 0.3s;
+        }
+        .slider-arrow:hover {
+            background: var(--secondary);
+            transform: translateY(-50%) scale(1.1);
+        }
+        .slider-arrow.prev { left: -20px; }
+        .slider-arrow.next { right: -20px; }
+
         .price-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 40px rgba(99, 102, 241, 0.12);
-            border-color: rgba(99, 102, 241, 0.3);
+            transform: translateY(-6px);
+            border-color: var(--primary);
+            box-shadow: 0 15px 30px rgba(2, 132, 199, 0.15);
         }
         .price-card h3 {
-            font-size: 24px;
+            font-size: 22px;
             color: var(--dark);
-            margin-bottom: 12px;
+            margin-bottom: 10px;
             font-family: 'Poppins', sans-serif;
         }
         .price {
-            font-size: 32px;
+            font-size: 30px;
             color: var(--primary);
             font-weight: 700;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
             font-family: 'Poppins', sans-serif;
         }
         .price span {
-            font-size: 14px;
-            color: #6b7280;
+            font-size: 13px;
+            color: var(--text-color);
         }
         .features-list {
             list-style: none;
-            margin-bottom: 30px;
+            margin-bottom: 25px;
             text-align: left;
         }
         .features-list li {
             padding: 10px 0;
-            border-bottom: 1px solid #f3f4f6;
+            border-bottom: 1px solid var(--border-color);
             font-size: 14px;
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
             font-family: 'Poppins', sans-serif;
-            color: #4b5563;
+            color: var(--text-color);
         }
         .features-list li i.fa-youtube { color: #ef4444; }
         .features-list li i.fa-facebook { color: #2563eb; }
-        .features-list li i.fa-tiktok { color: #000; }
+        .features-list li i.fa-tiktok { color: var(--dark); }
         .features-list li i.fa-bolt { color: #f59e0b; }
 
-        /* IPTV & Apps Section - Redesigned */
-        .iptv-section {
-            background: linear-gradient(135deg, #0f172a, #1e1b4b);
+        .see-all-container {
+            text-align: center;
+            margin-top: 25px;
+            display: none;
+        }
+        .see-all-btn {
+            background: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+            padding: 10px 24px;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+            font-size: 14px;
+        }
+        .see-all-btn:hover {
+            background: var(--primary);
             color: #fff;
+        }
+
+        .packages-modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(5px);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .packages-modal-content {
+            background: var(--card-bg);
+            width: 100%;
+            max-width: 950px;
+            max-height: 90vh;
             border-radius: 24px;
-            padding: 60px 40px;
+            padding: 35px;
+            overflow-y: auto;
+            position: relative;
             box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            border: 1px solid var(--border-color);
+            animation: modalPop 0.3s ease-in-out;
+        }
+        @keyframes modalPop {
+            0% { transform: scale(0.9); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        .close-modal-btn {
+            position: absolute;
+            top: 20px; right: 20px;
+            background: var(--light);
+            border: 1px solid var(--border-color);
+            color: var(--text-color);
+            width: 36px; height: 36px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 16px;
+            transition: 0.3s;
+        }
+        .close-modal-btn:hover {
+            background: #ef4444;
+            color: #fff;
+            border-color: #ef4444;
+        }
+
+        /* IPTV & Apps Section Styles */
+        .iptv-section {
+            background: linear-gradient(135deg, rgba(2, 132, 199, 0.9), rgba(3, 105, 161, 0.95)), url('https://images.unsplash.com/photo-1593784991095-a205069470b6?auto=format&fit=crop&w=1200&q=80');
+            background-size: cover;
+            background-position: center;
+            color: #fff;
+            border-radius: 20px;
+            padding: 50px 30px;
+            box-shadow: 0 15px 30px rgba(2, 132, 199, 0.2);
+            text-align: center;
+            max-width: 1100px;
+            margin: 0 auto;
         }
         .iptv-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
-            margin-top: 30px;
+            gap: 25px;
+            margin-top: 25px;
+            justify-content: center;
         }
         .app-download-box {
-            background: rgba(255, 255, 255, 0.05);
+            background: rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(8px);
             padding: 30px 25px;
-            border-radius: 20px;
+            border-radius: 16px;
             text-align: center;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: 0.3s;
+            border: 1px solid rgba(255, 255, 255, 0.3);
             display: flex;
             flex-direction: column;
             justify-content: space-between;
+            align-items: center;
+            margin: 0 auto;
+            width: 100%;
+            max-width: 400px;
         }
-        .app-download-box:hover {
-            border-color: var(--primary);
-            transform: translateY(-6px);
-            background: rgba(255, 255, 255, 0.08);
-        }
-        .app-download-box i {
-            font-size: 45px;
-            color: #818cf8;
-            margin-bottom: 15px;
+        .app-download-box i.main-icon {
+            font-size: 40px;
+            color: #e0f2fe;
+            margin-bottom: 12px;
         }
         .app-download-box h4 {
-            font-size: 20px;
-            margin-bottom: 12px;
+            font-size: 18px;
+            margin-bottom: 10px;
             color: #fff;
         }
         .app-download-box p {
             font-size: 14px;
-            color: #94a3b8;
+            color: #e0f2fe;
             line-height: 1.6;
             margin-bottom: 20px;
+            text-align: center;
+        }
+
+        /* Modern Compact Coverage Area Styles */
+        .coverage-modern-wrapper {
+            max-width: 900px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 35px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.03);
+        }
+        .coverage-badge-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            justify-content: center;
+            margin-bottom: 25px;
+        }
+        .coverage-pill {
+            background: var(--light);
+            border: 1px solid var(--border-color);
+            padding: 10px 20px;
+            border-radius: 50px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--dark);
+            transition: 0.3s;
+        }
+        .coverage-pill i {
+            color: var(--primary);
+            font-size: 15px;
+        }
+        .coverage-pill:hover {
+            border-color: var(--primary);
+            background: rgba(2, 132, 199, 0.05);
+            transform: translateY(-2px);
+        }
+
+        /* Coverage Area Cards & Modal Styles */
+        .coverage-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            max-width: 950px;
+            margin: 0 auto;
+        }
+        .coverage-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            padding: 25px 20px;
+            border-radius: 16px;
+            text-align: center;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.03);
+            transition: 0.3s;
+        }
+        .coverage-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+            box-shadow: 0 12px 25px rgba(2, 132, 199, 0.1);
+        }
+        .coverage-card i {
+            font-size: 30px;
+            color: var(--primary);
+            margin-bottom: 12px;
+        }
+        .coverage-card h4 {
+            font-size: 16px;
+            color: var(--dark);
+            margin-bottom: 6px;
+            font-weight: 600;
+        }
+        .coverage-card p {
+            font-size: 13px;
+            color: var(--text-color);
         }
 
         /* Payment & Contact Section */
         .info-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
             gap: 30px;
+            max-width: 950px;
+            margin: 0 auto;
         }
         .info-card {
             background: var(--card-bg);
             padding: 35px;
             border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-            border: 1px solid rgba(0,0,0,0.04);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.03);
+            border: 1px solid var(--border-color);
         }
         .info-card h3 {
             margin-bottom: 15px;
             color: var(--dark);
-            font-size: 20px;
+            font-size: 19px;
             display: flex;
             align-items: center;
             gap: 10px;
         }
         .copy-btn {
-            background: #ede9fe;
+            background: rgba(2, 132, 199, 0.1);
             color: var(--primary);
             border: none;
             padding: 6px 14px;
-            border-radius: 8px;
+            border-radius: 6px;
             cursor: pointer;
             font-size: 13px;
             font-weight: 600;
             transition: 0.3s;
         }
-        .copy-btn:hover {
-            background: var(--primary);
-            color: #fff;
-        }
+        .copy-btn:hover { background: var(--primary); color: #fff; }
         
         .helpline-item {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            background: #f8fafc;
+            background: var(--light);
             padding: 12px 16px;
-            border-radius: 12px;
+            border-radius: 10px;
             margin-top: 12px;
-            border: 1px solid #e2e8f0;
+            border: 1px solid var(--border-color);
         }
         .helpline-left {
             display: flex;
             align-items: center;
-            gap: 12px;
-        }
-        .helpline-left i {
-            color: var(--primary);
-            font-size: 16px;
-        }
-
-        .payment-method-item {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            background: #f8fafc;
-            padding: 12px 16px;
-            border-radius: 12px;
-            margin-top: 12px;
-            border: 1px solid #e2e8f0;
-        }
-        .payment-left {
-            display: flex;
-            align-items: center;
             gap: 10px;
+        }
+        .helpline-left i { color: var(--primary); font-size: 15px; }
+
+        .payment-box {
+            background: var(--light);
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            margin-top: 12px;
+            text-align: center;
+        }
+        .payment-logos {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
         }
         .payment-badge {
             font-weight: 600;
-            padding: 6px 12px;
-            border-radius: 8px;
+            padding: 5px 12px;
+            border-radius: 6px;
             color: #fff;
-            font-size: 13px;
+            font-size: 12px;
             display: inline-flex;
             align-items: center;
-            gap: 6px;
+            gap: 5px;
         }
         .badge-bkash { background: var(--bkash); }
         .badge-nagad { background: var(--nagad); }
         .badge-rocket { background: var(--rocket); }
+        
+        .payment-number-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: var(--card-bg);
+            padding: 12px 15px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+
+        /* Customer Reviews Section */
+        .reviews-section {
+            padding-top: 0;
+        }
+        .reviews-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .reviews-header h2 {
+            font-size: 32px;
+            font-weight: 800;
+            font-family: 'Poppins', sans-serif;
+            color: var(--dark);
+            margin-bottom: 10px;
+        }
+        .reviews-header h2 span {
+            color: #ef4444;
+        }
+        .reviews-header p {
+            font-size: 15px;
+            color: var(--text-color);
+            max-width: 550px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+        .reviews-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 1050px;
+            margin: 0 auto;
+        }
+        .review-card-modern {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            padding: 35px;
+            border-radius: 24px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.04);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .review-stars {
+            color: #f59e0b;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+        .review-card-modern p {
+            font-size: 15px;
+            color: var(--text-color);
+            line-height: 1.7;
+            font-style: italic;
+            margin-bottom: 25px;
+        }
+        .reviewer-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .reviewer-img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--primary);
+        }
+        .reviewer-details h5 {
+            font-size: 16px;
+            color: var(--dark);
+            font-weight: 700;
+            font-family: 'Poppins', sans-serif;
+            margin-bottom: 2px;
+        }
+        .reviewer-details span {
+            font-size: 12px;
+            color: var(--text-color);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 500;
+        }
 
         #toast-notification {
             visibility: hidden;
-            min-width: 260px;
+            min-width: 240px;
             background-color: var(--dark);
             color: #fff;
             text-align: center;
-            border-radius: 12px;
-            padding: 15px;
+            border-radius: 10px;
+            padding: 12px;
             position: fixed;
-            left: 50%;
-            bottom: 30px;
+            left: 50%; bottom: 25px;
             transform: translateX(-50%);
-            font-size: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            font-size: 14px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
             border-left: 4px solid var(--accent);
-            transition: visibility 0.3s, opacity 0.3s, bottom 0.3s;
             opacity: 0;
             z-index: 99999;
+            transition: opacity 0.3s;
         }
         #toast-notification.show {
-            visibility: hidden; 
+            visibility: visible; 
             opacity: 1;
         }
 
@@ -494,44 +842,302 @@
             gap: 15px;
         }
         .contact-form input, .contact-form textarea {
-            width: 100%;
-            padding: 14px;
-            border: 1px solid #e2e8f0;
-            background: #f8fafc;
+            width: 100%; padding: 14px;
+            border: 1px solid var(--border-color);
+            background: var(--light); color: var(--text-color);
+            border-radius: 10px; font-size: 14px; outline: none;
+        }
+        .contact-form textarea { height: 120px; resize: none; }
+
+        /* Professional Compact Footer Design */
+        footer {
+            background: var(--card-bg);
+            color: var(--text-color);
+            padding: 40px 8% 20px 8%;
+            border-top: 1px solid var(--border-color);
+            margin-top: 50px;
+        }
+        .footer-compact-grid {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+        @media(max-width: 768px) {
+            .footer-compact-grid {
+                flex-direction: column;
+                gap: 20px;
+                text-align: center;
+            }
+            .footer-cols-wrapper {
+                justify-content: center;
+            }
+        }
+        .footer-cols-wrapper {
+            display: flex;
+            justify-content: center;
+            gap: 50px;
+        }
+        .footer-col h4 {
+            font-size: 14px;
+            color: var(--dark);
+            margin-bottom: 10px;
+            font-family: 'Poppins', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .footer-col ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+        .footer-col ul li a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-size: 13px;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+        .footer-col ul li a:hover {
+            color: var(--primary);
+        }
+
+        .footer-info-compact {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--light);
+            border: 1px solid var(--border-color);
             border-radius: 12px;
+            padding: 14px 24px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 15px;
+            font-size: 14px;
+            max-width: 1050px;
+            margin-left: auto;
+            margin-right: auto;
+            margin-bottom: 20px;
+        }
+        .footer-info-compact-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-color);
+        }
+        .footer-info-compact-item i {
+            color: var(--primary);
             font-size: 15px;
-            outline: none;
+        }
+
+        .footer-social-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--light);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 14px 24px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 15px;
+            max-width: 1050px;
+            margin-left: auto;
+            margin-right: auto;
+            margin-bottom: 20px;
+        }
+        .footer-social-title {
+            font-weight: 600;
+            font-size: 13px;
+            color: var(--dark);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .footer-social-icons {
+            display: flex;
+            gap: 10px;
+        }
+        .footer-social-icons a {
+            width: 36px;
+            height: 36px;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-color);
+            text-decoration: none;
+            transition: 0.3s;
+            font-size: 14px;
+        }
+        .footer-social-icons a:hover {
+            background: var(--primary);
+            color: #fff;
+            border-color: var(--primary);
+            transform: translateY(-2px);
+        }
+        .footer-bottom-text {
+            text-align: center;
+            font-size: 13px;
+            color: var(--text-color);
+            border-top: 1px solid var(--border-color);
+            padding-top: 20px;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: #fff;
+            padding: 12px 28px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            box-shadow: 0 6px 20px rgba(2, 132, 199, 0.3);
+            transition: 0.3s transform;
+            display: inline-block;
+            cursor: pointer;
+        }
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+
+        /* Floating Chat & Scroll-to-Top CSS */
+        .floating-chat-container {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 12px;
+        }
+        .chat-popup-box {
+            display: none;
+            width: 300px;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            padding: 20px;
+            animation: chatPopupAnim 0.3s ease-in-out;
+        }
+        @keyframes chatPopupAnim {
+            0% { transform: scale(0.8); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        .chat-popup-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+        .chat-popup-header h4 {
+            font-size: 16px;
+            color: var(--dark);
+            font-family: 'Poppins', sans-serif;
+        }
+        .chat-close-btn {
+            background: none;
+            border: none;
+            font-size: 16px;
+            cursor: pointer;
+            color: var(--text-color);
+        }
+        .chat-popup-box p {
+            font-size: 13px;
+            color: var(--text-color);
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+        .chat-options {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .chat-option-btn {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 14px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+            transition: 0.3s;
+            border: 1px solid var(--border-color);
+        }
+        .chat-option-btn.messenger {
+            background: rgba(0, 132, 255, 0.08);
+            color: #0084ff;
+        }
+        .chat-option-btn.messenger:hover {
+            background: #0084ff;
+            color: #fff;
+        }
+        .chat-option-btn.whatsapp {
+            background: rgba(37, 211, 102, 0.08);
+            color: #25d366;
+        }
+        .chat-option-btn.whatsapp:hover {
+            background: #25d366;
+            color: #fff;
+        }
+        .chat-toggle-main-btn {
+            width: 52px;
+            height: 52px;
+            background: var(--primary);
+            color: #fff;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            box-shadow: 0 6px 20px rgba(2, 132, 199, 0.4);
             transition: 0.3s;
         }
-        .contact-form input:focus, .contact-form textarea:focus {
+        .chat-toggle-main-btn:hover {
+            transform: scale(1.08);
+            background: var(--secondary);
+        }
+        .scroll-top-btn {
+            display: none;
+            width: 42px;
+            height: 42px;
+            background: var(--card-bg);
+            color: var(--primary);
+            border: 1px solid var(--border-color);
+            border-radius: 50%;
+            cursor: pointer;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            transition: 0.3s;
+            margin-top: 5px;
+        }
+        .scroll-top-btn:hover {
+            background: var(--primary);
+            color: #fff;
             border-color: var(--primary);
-            background: #fff;
-            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
-        }
-        .contact-form textarea {
-            height: 120px;
-            resize: none;
         }
 
-        footer {
-            background: var(--dark);
-            color: #64748b;
-            text-align: center;
-            padding: 35px 20px;
-            font-size: 14px;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
+        /* রেসপন্সিভ স্ক্রিন ম্যানেজমেন্ট: ছোট স্ক্রিনে স্লাইডার দেখাবে, বড় স্ক্রিনে গ্রিড দেখাবে */
         @media(max-width: 900px) {
-            nav { display: none; }
-            .menu-toggle { display: block; }
-            .hero-content h1 { font-size: 28px; }
-            .iptv-section { padding: 40px 20px; }
+            .banner-container { height: 190px; }
+            .pricing-grid.mobile-hidden { display: none !important; }
+            .package-slider-outer.mobile-show { display: block !important; }
+            .see-all-container { display: block !important; }
         }
-
-        @keyframes slideUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
+        @media(min-width: 901px) {
+            .pricing-grid.mobile-hidden { display: grid !important; }
+            .package-slider-outer.mobile-show { display: none !important; }
+            .see-all-container { display: none !important; }
         }
     </style>
 </head>
@@ -539,305 +1145,767 @@
 
     <!-- Header Section -->
     <header>
-        <div class="logo">Alam<span>IT</span>.net</div>
+        <div class="logo" onclick="switchPage('home')">Alam<span>IT</span>.net</div>
         
-        <!-- Desktop Nav -->
-        <nav>
-            <a href="#home">হোম</a>
-            <a href="#why-choose">কেন সংযোগ নেবেন</a>
-            <a href="#packages">প্যাকেজসমূহ</a>
-            <a href="#helpline">হেল্পলাইন ও পেমেন্ট</a>
-            <a href="#iptv">লাইভ টিভি</a>
-            <a href="#contact">যোগাযোগ</a>
-            <a href="#about">আমাদের সম্পর্কে</a>
-        </nav>
+        <!-- ডেক্সটপ ও মোবাইল উভয় মোডেই নেভবার লুকানো থাকবে এবং থ্রি-ডট বাটন কাজ করবে -->
+        <nav></nav>
 
-        <!-- Three Line Menu Toggle Button -->
-        <button class="menu-toggle" onclick="toggleMenu()"><i class="fa-solid fa-bars"></i></button>
+        <div style="display: flex; align-items: center; gap: 12px;">
+            <button class="theme-toggle" id="themeToggleBtn" onclick="toggleTheme()" title="ডার্ক/লাইট মোড পরিবর্তন করুন">
+                <i class="fa-solid fa-moon" id="themeIcon"></i>
+            </button>
+            <button class="menu-toggle" onclick="toggleMenu()" title="মেনু"><i class="fa-solid fa-bars"></i></button>
+        </div>
 
-        <!-- Dropdown Menu with About Section at the bottom -->
+        <!-- ড্রপডাউন বা থ্রি-ডট মেনু (সব ডিভাইসে সমানভাবে কাজ করবে) -->
         <div class="dropdown-menu" id="dropdownMenu">
-            <a href="#home" onclick="toggleMenu()">🏠 হোম পেজ</a>
-            <a href="#why-choose" onclick="toggleMenu()">⭐ কেন সংযোগ নেবেন</a>
-            <a href="#packages" onclick="toggleMenu()">⚡ ইন্টারনেট প্যাকেজ</a>
-            <a href="#helpline" onclick="toggleMenu()">📞 হেল্পলাইন নম্বর</a>
-            <a href="#payment" onclick="toggleMenu()">💳 পেমেন্ট গেটওয়ে</a>
-            <a href="#iptv" onclick="toggleMenu()">📺 লাইভ টিভি ও অ্যাপস</a>
-            <a href="#contact" onclick="toggleMenu()">✉️ মেইল ও মেসেজ</a>
-            <a href="#about" onclick="toggleMenu()">ℹ️ আমাদের সম্পর্কে</a>
+            <a onclick="switchPage('home'); toggleMenu();">🏠 হোম পেজ</a>
+            <a onclick="switchPage('why-choose'); toggleMenu();">⭐ কেন সংযোগ নেবেন</a>
+            <a onclick="switchPage('packages'); toggleMenu();">⚡ ইন্টারনেট প্যাকেজ</a>
+            <a onclick="switchPage('helpline'); toggleMenu();">📞 হেল্পলাইন ও পেমেন্ট</a>
+            <a onclick="switchPage('iptv'); toggleMenu();">📺 লাইভ টিভি ও অ্যাপস</a>
+            <a onclick="openCoverageModal(); toggleMenu();">📍 আমাদের কভারেজ এরিয়া</a>
+            <a onclick="switchPage('contact'); toggleMenu();">✉️ মেইল ও মেসেজ</a>
+            <a onclick="switchPage('reviews'); toggleMenu();">💬 কাস্টমার রিভিউ</a>
+            <a onclick="switchPage('about'); toggleMenu();">ℹ️ আমাদের সম্পর্কে</a>
         </div>
     </header>
 
-    <!-- Hero Slider Section -->
-    <section id="home" class="hero-slider">
-        <!-- Slide 1 -->
-        <div class="slide active" style="background-image: url('https://images.unsplash.com/photo-1544197150-b99a580bb7a8?auto=format&fit=crop&w=1920&q=80');">
-            <div class="hero-content">
-                <h1>সাতক্ষীরায় সেরা গতির <span>AlamIT.net</span></h1>
-                <p>খুলনা ও সাতক্ষীরা অঞ্চলে ফাইবার অপটিক ক্যাবলের মাধ্যমে দিচ্ছি সর্বাধুনিক এবং নিরবচ্ছিন্ন ইন্টারনেট সংযোগ।</p>
-                <a href="#packages" class="btn">প্যাকেজ দেখুন</a>
-            </div>
-        </div>
-        <!-- Slide 2 -->
-        <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=1920&q=80');">
-            <div class="hero-content">
-                <h1>গেমিং ও স্ট্রিমিং এখন <span>ল্যাগ-ফ্রি</span></h1>
-                <p>১০০ এমবিপিএস BDIX ও ইউটিউব-ফেসবুক স্পিড নিয়ে উপভোগ করুন আপনার দৈনন্দিন অনলাইন অ্যাক্টিভিটি।</p>
-                <a href="#packages" class="btn">প্যাকেজ দেখুন</a>
-            </div>
-        </div>
-        <!-- Slide 3 -->
-        <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=1920&q=80');">
-            <div class="hero-content">
-                <h1>২৪/৭ ডেডিকেটেড <span>কাস্টমার সাপোর্ট</span></h1>
-                <p>যেকোনো প্রয়োজনে আমাদের দক্ষ টিম আপনার সেবায় সর্বদা নিয়োজিত রয়েছে। আজই কানেকশন নিন।</p>
-                <a href="#helpline" class="btn">যোগাযোগ করুন</a>
-            </div>
-        </div>
-    </section>
 
-    <!-- Separate Section: কেন আমাদের ইন্টারনেট সংযোগ নেবেন? -->
-    <section id="why-choose" style="background: #ffffff;">
-        <h2 class="section-title">কেন আমাদের ইন্টারনেট সংযোগ নেবেন?</h2>
-        <div class="why-choose-container">
-            <div class="why-choose-card">
-                <i class="fa-solid fa-gauge-high"></i>
-                <h4>হাই-স্পিড ব্যান্ডউইথ</h4>
-                <p>অন্যান্য আইএসপি-র স্লো স্পিড ও ব্রাউজিং ল্যাগ থেকে মুক্তি; পান সুপার-ফাস্ট ও স্মুথ ব্রাউজিং অভিজ্ঞতা।</p>
+    <!-- ==========================================
+         PAGE 1: HOME PAGE (মূল হোমপেজ ডিজাইন)
+         ========================================== -->
+    <div id="page-home" class="page-view active-page" style="padding-top: 85px;">
+        <!-- Banner Slider Section -->
+        <section class="hero-slider-section" style="padding-top: 15px;">
+            <div class="banner-container" id="bannerContainer">
+                <div class="banner-slide active" style="background-image: url('https://images.unsplash.com/photo-1544197150-b99a580bb7a8?auto=format&fit=crop&w=1200&q=80');"></div>
+                <div class="banner-slide" style="background-image: url('https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=1200&q=80');"></div>
+                <div class="banner-slide" style="background-image: url('https://images.unsplash.com/photo-1574375927938-d5a98e8ffe85?auto=format&fit=crop&w=1200&q=80');"></div>
+                <div class="banner-slide" style="background-image: url('https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=1200&q=80');"></div>
             </div>
-            <div class="why-choose-card">
-                <i class="fa-solid fa-network-wired"></i>
-                <h4>১০০ এমবিপিএস BDIX</h4>
-                <p>লোকাল ডাটা ট্রান্সফার, মুভি ও সফটওয়্যার ডাউনলোডের জন্য ডেডিকেটেড ১০০ এমবিপিএস BDIX স্পিড।</p>
+            <div class="banner-dots" id="bannerDots">
+                <span class="dot active" onclick="currentBannerSlide(0)"></span>
+                <span class="dot" onclick="currentBannerSlide(1)"></span>
+                <span class="dot" onclick="currentBannerSlide(2)"></span>
+                <span class="dot" onclick="currentBannerSlide(3)"></span>
             </div>
-            <div class="why-choose-card">
-                <i class="fa-solid fa-play"></i>
-                <h4>বাফারলেস ইউটিউব ও ফেসবুক</h4>
-                <p>পিক আওয়ারেও কোনো লোডিং বা বাফারিং ছাড়া হাই-ডেফিনিশন ভিডিও স্ট্রিমিং ও সোশ্যাল মিডিয়া ব্রাউজিং।</p>
-            </div>
-            <div class="why-choose-card">
-                <i class="fa-solid fa-gamepad"></i>
-                <h4>ল্যাগ-ফ্রি অনলাইন গেমিং</h4>
-                <p>লো পিং (Low Ping) এবং জিরো প্যাকেট লস-এর সুবাদে ফ্রি ফায়ার, পাবজি কিংবা পিসি গেম খেলুন বাধাহীনভাবে।</p>
-            </div>
-            <div class="why-choose-card">
-                <i class="fa-solid fa-download"></i>
-                <h4>ঝড়ের গতিতে ডাউনলোড</h4>
-                <p>এফটিপি (FTP) সার্ভার ও মুভি পোর্টাল থেকে মুভি, সিরিজ বা ফাইল ডাউনলোড করুন সর্বোচ্চ গতিতে।</p>
-            </div>
-            <div class="why-choose-card">
-                <i class="fa-solid fa-shield-halved"></i>
-                <h4>১০০% অপটিক্যাল ফাইবার</h4>
-                <p>দুর্যোগপূর্ণ আবহাওয়াতেও ইন্টারনেটে ডিসকানেকশন বা স্লো হওয়ার ঝামেলা নেই—শতভাগ রিয়েল ফাইবার কানেকশন।</p>
-            </div>
-            <div class="why-choose-card">
-                <i class="fa-solid fa-headset"></i>
-                <h4>২৪/৭ ডেডিকেটেড সাপোর্ট</h4>
-                <p>অন্যান্য নেটের মতো মাসের পর মাস ঝুলে থাকা নয়; যেকোনো নেটের সমস্যায় তাৎক্ষণিক আমাদের এক্সপার্ট টিম হাজির।</p>
-            </div>
-            <div class="why-choose-card">
-                <i class="fa-solid fa-wallet"></i>
-                <h4>সাশ্রয়ী মাসিক বিল</h4>
-                <p>কম খরচে প্রিমিয়াম কোয়ালিটি ও আনলিমিটেড ইন্টারনেট সুবিধা—ছাত্রছাত্রী ও ফ্যামিলি ইউজারদের জন্য পারফেক্ট।</p>
-            </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Separate Section: আমাদের ইন্টারনেট প্যাকেজসমূহ -->
-    <section id="packages" style="background: #e9ecef;">
-        <h2 class="section-title">আমাদের ইন্টারনেট প্যাকেজসমূহ</h2>
-        <div class="pricing-grid">
-            <div class="price-card">
-                <h3>২৫ এমবিপিএস</h3>
-                <div class="price">৫০০ টাকা <span>/মাস</span></div>
-                <ul class="features-list">
-                    <li><i class="fa-solid fa-bolt"></i> Speed: 25 Mbps</li>
-                    <li><i class="fa-solid fa-network-wired" style="color:var(--primary);"></i> BDIX Speed: 100 Mbps</li>
-                    <li><i class="fa-brands fa-youtube"></i> YouTube: 100 Mbps</li>
-                    <li><i class="fa-brands fa-facebook"></i> Facebook: 100 Mbps</li>
-                    <li><i class="fa-brands fa-tiktok"></i> TikTok: 100 Mbps</li>
-                </ul>
-                <a href="#helpline" class="btn" style="font-size: 14px; padding: 10px 24px;">সংযোগ নিন</a>
+        <!-- Why Choose Us Section -->
+        <section>
+            <h2 class="section-title">কেন আমাদের ইন্টারনেট সংযোগ নেবেন?</h2>
+            <div class="why-choose-container">
+                <div class="why-choose-card">
+                    <i class="fa-solid fa-gauge-high"></i>
+                    <h4>হাই-স্পিড ব্যান্ডউইথ</h4>
+                    <p>অন্যান্য আইএসপি-র স্লো স্পিড ও ব্রাউজিং ল্যাগ থেকে মুক্তি; পান সুপার-ফাস্ট ও স্মুথ অভিজ্ঞতা।</p>
+                </div>
+                <div class="why-choose-card">
+                    <i class="fa-solid fa-network-wired"></i>
+                    <h4>১০০ এমবিপিএস BDIX</h4>
+                    <p>লোকাল ডাটা ট্রান্সফার, মুভি ও সফটওয়্যার ডাউনলোডের জন্য ডেডিকেটেড ১০০ এমবিপিএস BDIX স্পিড।</p>
+                </div>
+                <div class="why-choose-card">
+                    <i class="fa-solid fa-play"></i>
+                    <h4>বাফারলেস ইউটিউব ও ফেসবুক</h4>
+                    <p>পিক আওয়ারেও কোনো লোডিং বা বাফারিং ছাড়া হাই-ডেফিনিশন ভিডিও স্ট্রিমিং ও ব্রাউজিং।</p>
+                </div>
+                <div class="why-choose-card">
+                    <i class="fa-solid fa-gamepad"></i>
+                    <h4>ল্যাগ-ফ্রি অনলাইন গেমিং</h4>
+                    <p>লো পিং এবং জিরো প্যাকেট লস-এর সুবাদে ফ্রি ফায়ার, পাবজি কিংবা পিসি গেম খেলুন বাধাহীনভাবে।</p>
+                </div>
             </div>
-            <div class="price-card">
-                <h3>৩০ এমবিপিএস</h3>
-                <div class="price">৬৫০ টাকা <span>/মাস</span></div>
-                <ul class="features-list">
-                    <li><i class="fa-solid fa-bolt"></i> Speed: 30 Mbps</li>
-                    <li><i class="fa-solid fa-network-wired" style="color:var(--primary);"></i> BDIX Speed: 100 Mbps</li>
-                    <li><i class="fa-brands fa-youtube"></i> YouTube: 100 Mbps</li>
-                    <li><i class="fa-brands fa-facebook"></i> Facebook: 100 Mbps</li>
-                    <li><i class="fa-brands fa-tiktok"></i> TikTok: 100 Mbps</li>
-                </ul>
-                <a href="#helpline" class="btn" style="font-size: 14px; padding: 10px 24px;">সংযোগ নিন</a>
-            </div>
-            <div class="price-card">
-                <h3>৪০ এমবিপিএস</h3>
-                <div class="price">৭০০ টাকা <span>/মাস</span></div>
-                <ul class="features-list">
-                    <li><i class="fa-solid fa-bolt"></i> Speed: 40 Mbps</li>
-                    <li><i class="fa-solid fa-network-wired" style="color:var(--primary);"></i> BDIX Speed: 100 Mbps</li>
-                    <li><i class="fa-brands fa-youtube"></i> YouTube: 100 Mbps</li>
-                    <li><i class="fa-brands fa-facebook"></i> Facebook: 100 Mbps</li>
-                    <li><i class="fa-brands fa-tiktok"></i> TikTok: 100 Mbps</li>
-                </ul>
-                <a href="#helpline" class="btn" style="font-size: 14px; padding: 10px 24px;">সংযোগ নিন</a>
-            </div>
-            <div class="price-card">
-                <h3>৫০ এমবিপিএস</h3>
-                <div class="price">৮০০ টাকা <span>/মাস</span></div>
-                <ul class="features-list">
-                    <li><i class="fa-solid fa-bolt"></i> Speed: 50 Mbps</li>
-                    <li><i class="fa-solid fa-network-wired" style="color:var(--primary);"></i> BDIX Speed: 100 Mbps</li>
-                    <li><i class="fa-brands fa-youtube"></i> YouTube: 100 Mbps</li>
-                    <li><i class="fa-brands fa-facebook"></i> Facebook: 100 Mbps</li>
-                    <li><i class="fa-brands fa-tiktok"></i> TikTok: 100 Mbps</li>
-                </ul>
-                <a href="#helpline" class="btn" style="font-size: 14px; padding: 10px 24px;">সংযোগ নিন</a>
-            </div>
-            <div class="price-card">
-                <h3>৬০ এমবিপিএস</h3>
-                <div class="price">৮৫০ টাকা <span>/মাস</span></div>
-                <ul class="features-list">
-                    <li><i class="fa-solid fa-bolt"></i> Speed: 60 Mbps</li>
-                    <li><i class="fa-solid fa-network-wired" style="color:var(--primary);"></i> BDIX Speed: 100 Mbps</li>
-                    <li><i class="fa-brands fa-youtube"></i> YouTube: 100 Mbps</li>
-                    <li><i class="fa-brands fa-facebook"></i> Facebook: 100 Mbps</li>
-                    <li><i class="fa-brands fa-tiktok"></i> TikTok: 100 Mbps</li>
-                </ul>
-                <a href="#helpline" class="btn" style="font-size: 14px; padding: 10px 24px;">সংযোগ নিন</a>
-            </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Helpline & Payment Section -->
-    <section id="helpline">
-        <h2 class="section-title">হেল্পলাইন ও পেমেন্ট তথ্য</h2>
-        <div class="info-grid">
-            <div class="info-card">
-                <h3><i class="fa-solid fa-headset" style="color: var(--primary);"></i> হেল্পলাইন নম্বর</h3>
-                <p>যেকোনো সমস্যায় আমাদের কল করুন:</p>
-                <div class="helpline-item">
-                    <div class="helpline-left">
-                        <i class="fa-solid fa-phone-volume"></i>
-                        <span style="font-weight: 600;">01338-190872</span>
-                    </div>
-                    <button class="copy-btn" onclick="copyToClipboard('01338-190872')">কপি</button>
-                </div>
-                <div class="helpline-item">
-                    <div class="helpline-left">
-                        <i class="fa-solid fa-phone-volume"></i>
-                        <span style="font-weight: 600;">01338-190873</span>
-                    </div>
-                    <button class="copy-btn" onclick="copyToClipboard('01338-190873')">কপি</button>
-                </div>
-                <div class="helpline-item">
-                    <div class="helpline-left">
-                        <i class="fa-solid fa-phone-volume"></i>
-                        <span style="font-weight: 600;">01338-190874</span>
-                    </div>
-                    <button class="copy-btn" onclick="copyToClipboard('01338-190874')">কপি</button>
-                </div>
-            </div>
-
-            <div class="info-card" id="payment">
-                <h3><i class="fa-solid fa-wallet" style="color: var(--accent);"></i> পেমেন্ট নম্বর</h3>
-                <p>আপনার মাসিক বিল পরিশোধ করুন নিচের নম্বরে:</p>
-                <div class="payment-method-item">
-                    <div class="payment-left">
-                        <span class="payment-badge badge-bkash"><i class="fa-solid fa-mobile-screen"></i> বিকাশ</span>
-                    </div>
-                    <span style="font-weight: 700;">01858141013</span>
-                    <button class="copy-btn" onclick="copyToClipboard('01858141013')">কপি</button>
-                </div>
-                <div class="payment-method-item">
-                    <div class="payment-left">
-                        <span class="payment-badge badge-nagad"><i class="fa-solid fa-bolt"></i> নগদ</span>
-                    </div>
-                    <span style="font-weight: 700;">01858141013</span>
-                    <button class="copy-btn" onclick="copyToClipboard('01858141013')">কপি</button>
-                </div>
-                <div class="payment-method-item">
-                    <div class="payment-left">
-                        <span class="payment-badge badge-rocket"><i class="fa-solid fa-rocket"></i> রকেট</span>
-                    </div>
-                    <span style="font-weight: 700;">01858141013</span>
-                    <button class="copy-btn" onclick="copyToClipboard('01858141013')">কপি</button>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Live TV & Apps Section -->
-    <section id="iptv" style="padding-top: 0;">
-        <div class="iptv-section">
-            <h2 class="section-title" style="color: #fff; margin-bottom: 20px;">লাইভ টিভি ও অ্যাপস জোন</h2>
-            <p style="text-align: center; color: #94a3b8; max-width: 700px; margin: 0 auto 40px auto; font-size: 15px;">আমাদের হাই-স্পিড ব্রডব্যান্ড ইন্টারনেটের সাথে আপনার মোবাইল কিংবা স্মার্ট টিভিতে সম্পূর্ণ বাফারিং-মুক্তভাবে এইচডি লাইভ টিভি ও এন্টারটেইনমেন্ট উপভোগ করুন।</p>
+        <!-- Packages Section -->
+        <section>
+            <h2 class="section-title">আমাদের ইন্টারনেট প্যাকেজসমূহ</h2>
             
-            <div class="iptv-grid">
-                <!-- Mobile App Box -->
-                <div class="app-download-box">
-                    <div>
-                        <i class="fa-solid fa-mobile-screen-button"></i>
-                        <h4>Mobile App</h4>
-                        <p>আমাদের অফিসিয়াল অ্যান্ড্রয়েড অ্যাপ ডাউনলোড করে যেকোনো সময় মুভি, এফটিপি ও বিভিন্ন বিনোদনমূলক কন্টেন্ট উপভোগ করুন সরাসরি আপনার ফোনে।</p>
+            <div class="pricing-grid mobile-hidden">
+                <div class="price-card">
+                    <h3>২৫ এমবিপিএস</h3>
+                    <div class="price">৫০০ টাকা <span>/মাস</span></div>
+                    <ul class="features-list">
+                        <li><i class="fa-solid fa-bolt"></i> Speed: 25 Mbps</li>
+                        <li><i class="fa-solid fa-network-wired" style="color:var(--primary);"></i> BDIX: 100 Mbps</li>
+                        <li><i class="fa-brands fa-youtube"></i> YouTube: 100 Mbps</li>
+                        <li><i class="fa-brands fa-facebook"></i> Facebook: 100 Mbps</li>
+                    </ul>
+                    <a onclick="switchPage('helpline')" class="btn">সংযোগ নিন</a>
+                </div>
+                <div class="price-card">
+                    <h3>৩০ এমবিপিএস</h3>
+                    <div class="price">৬৫০ টাকা <span>/মাস</span></div>
+                    <ul class="features-list">
+                        <li><i class="fa-solid fa-bolt"></i> Speed: 30 Mbps</li>
+                        <li><i class="fa-solid fa-network-wired" style="color:var(--primary);"></i> BDIX: 100 Mbps</li>
+                        <li><i class="fa-brands fa-youtube"></i> YouTube: 100 Mbps</li>
+                        <li><i class="fa-brands fa-facebook"></i> Facebook: 100 Mbps</li>
+                    </ul>
+                    <a onclick="switchPage('helpline')" class="btn">সংযোগ নিন</a>
+                </div>
+                <div class="price-card">
+                    <h3>৪০ এমবিপিএস</h3>
+                    <div class="price">৭০০ টাকা <span>/মাস</span></div>
+                    <ul class="features-list">
+                        <li><i class="fa-solid fa-bolt"></i> Speed: 40 Mbps</li>
+                        <li><i class="fa-solid fa-network-wired" style="color:var(--primary);"></i> BDIX: 100 Mbps</li>
+                        <li><i class="fa-brands fa-youtube"></i> YouTube: 100 Mbps</li>
+                        <li><i class="fa-brands fa-facebook"></i> Facebook: 100 Mbps</li>
+                    </ul>
+                    <a onclick="switchPage('helpline')" class="btn">সংযোগ নিন</a>
+                </div>
+                <div class="price-card">
+                    <h3>৫০ এমবিপিএস</h3>
+                    <div class="price">৮০০ টাকা <span>/মাস</span></div>
+                    <ul class="features-list">
+                        <li><i class="fa-solid fa-bolt"></i> Speed: 50 Mbps</li>
+                        <li><i class="fa-solid fa-network-wired" style="color:var(--primary);"></i> BDIX: 100 Mbps</li>
+                        <li><i class="fa-brands fa-youtube"></i> YouTube: 100 Mbps</li>
+                        <li><i class="fa-brands fa-facebook"></i> Facebook: 100 Mbps</li>
+                    </ul>
+                    <a onclick="switchPage('helpline')" class="btn">সংযোগ নিন</a>
+                </div>
+            </div>
+
+            <div class="package-slider-outer mobile-show">
+                <button class="slider-arrow prev" onclick="manualSlide(-1)"><i class="fa-solid fa-chevron-left"></i></button>
+                <div class="package-slider-container">
+                    <div class="package-slider-wrapper" id="packageSlider">
+                        <div class="price-card">
+                            <h3>২৫ এমবিপিএস</h3>
+                            <div class="price">৫০০ টাকা <span>/মাস</span></div>
+                            <ul class="features-list">
+                                <li><i class="fa-solid fa-bolt"></i> Speed: 25 Mbps</li>
+                                <li><i class="fa-solid fa-network-wired" style="color:var(--primary);"></i> BDIX: 100 Mbps</li>
+                                <li><i class="fa-brands fa-youtube"></i> YouTube: 100 Mbps</li>
+                                <li><i class="fa-brands fa-facebook"></i> Facebook: 100 Mbps</li>
+                            </ul>
+                            <a onclick="switchPage('helpline')" class="btn">সংযোগ নিন</a>
+                        </div>
+                        <div class="price-card">
+                            <h3>৩০ এমবিপিএস</h3>
+                            <div class="price">৬৫০ টাকা <span>/মাস</span></div>
+                            <ul class="features-list">
+                                <li><i class="fa-solid fa-bolt"></i> Speed: 30 Mbps</li>
+                                <li><i class="fa-solid fa-network-wired" style="color:var(--primary);"></i> BDIX: 100 Mbps</li>
+                                <li><i class="fa-brands fa-youtube"></i> YouTube: 100 Mbps</li>
+                                <li><i class="fa-brands fa-facebook"></i> Facebook: 100 Mbps</li>
+                            </ul>
+                            <a onclick="switchPage('helpline')" class="btn">সংযোগ নিন</a>
+                        </div>
+                        <div class="price-card">
+                            <h3>৪০ এমবিপিএস</h3>
+                            <div class="price">৭০০ টাকা <span>/মাস</span></div>
+                            <ul class="features-list">
+                                <li><i class="fa-solid fa-bolt"></i> Speed: 40 Mbps</li>
+                                <li><i class="fa-solid fa-network-wired" style="color:var(--primary);"></i> BDIX: 100 Mbps</li>
+                                <li><i class="fa-brands fa-youtube"></i> YouTube: 100 Mbps</li>
+                                <li><i class="fa-brands fa-facebook"></i> Facebook: 100 Mbps</li>
+                            </ul>
+                            <a onclick="switchPage('helpline')" class="btn">সংযোগ নিন</a>
+                        </div>
                     </div>
-                    <!-- মোবাইল অ্যাপের লিংক এখানে পেস্ট করুন -->
-                    <a href="এখানে অ্যাপ লিংক দিন" class="btn" style="font-size: 14px; padding: 10px 20px; width: 100%; text-align: center;"><i class="fa-solid fa-download"></i> Download App</a>
+                </div>
+                <button class="slider-arrow next" onclick="manualSlide(1)"><i class="fa-solid fa-chevron-right"></i></button>
+            </div>
+            
+            <div class="see-all-container">
+                <button class="see-all-btn" onclick="openAllPackagesModal()">সব প্যাকেজ একসাথে দেখুন</button>
+            </div>
+        </section>
+
+        <!-- হেল্পলাইন ও পেমেন্ট সেকশন -->
+        <section>
+            <h2 class="section-title">হেল্পলাইন ও পেমেন্ট তথ্য</h2>
+            <div class="info-grid">
+                <div class="info-card">
+                    <h3><i class="fa-solid fa-headset" style="color: var(--primary);"></i> হেল্পলাইন নম্বর</h3>
+                    <p style="font-size: 14px; color: var(--text-color); margin-bottom: 15px;">যেকোনো সমস্যায় আমাদের কল করুন:</p>
+                    <div class="helpline-item">
+                        <div class="helpline-left"><i class="fa-solid fa-phone-volume"></i><span>01338-190872</span></div>
+                        <button class="copy-btn" onclick="copyToClipboard('01338-190872')">কপি</button>
+                    </div>
+                    <div class="helpline-item">
+                        <div class="helpline-left"><i class="fa-solid fa-phone-volume"></i><span>01338-190873</span></div>
+                        <button class="copy-btn" onclick="copyToClipboard('01338-190873')">কপি</button>
+                    </div>
+                    <div class="helpline-item">
+                        <div class="helpline-left"><i class="fa-solid fa-phone-volume"></i><span>01338-190874</span></div>
+                        <button class="copy-btn" onclick="copyToClipboard('01338-190874')">কপি</button>
+                    </div>
                 </div>
 
-                <!-- Android TV App (Televizor / Tivimate) Box -->
-                <div class="app-download-box" style="border-color: rgba(99, 102, 241, 0.4); background: rgba(99, 102, 241, 0.05);">
-                    <div>
-                        <i class="fa-solid fa-tv"></i>
-                        <h4>Smart TV App (Televizor)</h4>
-                        <p>টেলিভিশনে লাইভ টিভি দেখার জন্য প্রফেশনাল <strong>Televizor</strong> অ্যাপটি ডাউনলোড করুন। অ্যাপ ইনস্টল করার পর আপনার নির্দিষ্ট লিংক সেটআপ করতে এবং চ্যানেল চালু করতে অনুগ্রহ করে আমাদের <strong>আইএসপি (ISP) হেল্পলাইনে যোগাযোগ করুন</strong>।</p>
-                    </div>
-                    <div style="display: flex; flex-direction: column; gap: 10px; width: 100%;">
-                        <!-- স্মার্ট টিভি অ্যাপের লিংক এখানে পেস্ট করুন -->
-                        <a href="https://play.google.com/store/apps/details?id=com.ottplay.ottplay" target="_blank" class="btn" style="font-size: 14px; padding: 10px 20px; width: 100%; text-align: center;"><i class="fa-solid fa-download"></i> Download Televizor</a>
-                        <a href="#helpline" class="copy-btn" style="padding: 10px; text-decoration: none; text-align: center; border-radius: 50px;">📞 লাইন অ্যাক্টিভ করতে যোগাযোগ করুন</a>
+                <div class="info-card">
+                    <h3><i class="fa-solid fa-wallet" style="color: var(--accent);"></i> পেমেন্ট নম্বর</h3>
+                    <div class="payment-box">
+                        <div class="payment-logos">
+                            <span class="payment-badge badge-bkash">বিকাশ</span>
+                            <span class="payment-badge badge-nagad">নগদ</span>
+                            <span class="payment-badge badge-rocket">রকেট</span>
+                        </div>
+                        <div class="payment-number-row">
+                            <span style="font-weight: 700; font-size: 16px; color: var(--dark);">01858141013</span>
+                            <button class="copy-btn" onclick="copyToClipboard('01858141013')">কপি</button>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Contact Form & Email Section -->
-    <section id="contact" style="padding-top: 0;">
-        <h2 class="section-title">যোগাযোগ ও মেইল সেকশন</h2>
-        <div style="max-width: 600px; margin: 0 auto;">
-            <div class="info-card contact-form">
-                <h3><i class="fa-solid fa-envelope" style="color: #ef4444;"></i> ইমেইল ও মেসেজ পাঠান</h3>
-                <p style="font-size: 14px; margin-bottom: 10px; color: #6b7280;">ইমেইল: alamit.info@gmail.com</p>
-                <form action="mailto:alamit.info@gmail.com" method="POST" enctype="text/plain">
-                    <input type="text" name="name" placeholder="আপনার নাম" required>
-                    <input type="text" name="phone" placeholder="আপনার মোবাইল নম্বর" required>
-                    <textarea name="message" placeholder="আপনার বার্তা বা মতামত লিখুন..." required></textarea>
-                    <button type="submit" class="btn" style="border: none; cursor: pointer; font-size: 15px; padding: 12px; border-radius: 12px;">সেন্ড করুন</button>
-                </form>
+        <!-- লাইভ টিভি ও অ্যাপস সেকশন -->
+        <section>
+            <div class="iptv-section">
+                <h2 class="section-title" style="color: #fff; margin-bottom: 15px;">লাইভ টিভি ও অ্যাপস জোন</h2>
+                <p style="text-align: center; color: #e0f2fe; max-width: 650px; margin: 0 auto 30px auto; font-size: 15px;">মোবাইল বা স্মার্ট টিভিতে বাফারিং-মুক্তভাবে এইচডি লাইভ টিভি এবং বিনোদন উপভোগ করুন।</p>
+                
+                <div class="iptv-grid">
+                    <div class="app-download-box">
+                        <div>
+                            <i class="fa-solid fa-mobile-screen-button main-icon"></i>
+                            <h4>Mobile App</h4>
+                            <p>অফিসিয়াল অ্যান্ড্রয়েড অ্যাপ ডাউনলোড করুন এবং যেকোনো সময় লাইভ টিভি উপভোগ করুন।</p>
+                        </div>
+                        <!-- 🔗 [এখানে আপনার মোবাইল অ্যাপের ডাউনলোড লিংক বসান] -->
+                        <a href="YOUR_MOBILE_APP_DOWNLOAD_LINK_HERE" class="btn" style="width: 100%; text-align: center;"><i class="fa-solid fa-download"></i> Download App</a>
+                    </div>
+
+                    <div class="app-download-box">
+                        <div>
+                            <i class="fa-solid fa-tv main-icon"></i>
+                            <h4>Smart TV App (Televizor)</h4>
+                            <p>টেলিভিশনে লাইভ টিভি দেখার জন্য পেশাদার <strong>Televizor</strong> অ্যাপটি ডাউনলোড করুন।</p>
+                        </div>
+                        <div style="display: flex; flex-direction: column; gap: 10px; width: 100%;">
+                            <!-- 🔗 [এখানে আপনার স্মার্ট টিভি বা Televizor অ্যাপের লিংক বসাতে পারেন] -->
+                            <a href="https://play.google.com/store/apps/details?id=com.ottplay.ottplay" target="_blank" class="btn" style="width: 100%; text-align: center;"><i class="fa-solid fa-download"></i> Download Televizor</a>
+                            <a onclick="switchPage('helpline')" class="btn" style="width: 100%; text-align: center; background: rgba(255,255,255,0.2); border: 1px solid rgba(255,255,255,0.4);"><i class="fa-solid fa-phone"></i> লাইন একটিভ করুন</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- আমাদের কভারেজ এরিয়া সেকশন -->
+        <section>
+            <h2 class="section-title">আমাদের কভারেজ এরিয়া</h2>
+            <p style="text-align: center; color: var(--text-color); max-width: 650px; margin: 0 auto 25px auto; font-size: 15px;">আমাদের হাই-স্পিড ফাইবার অপটিক ইন্টারনেট সংযোগটি যে সমস্ত এলাকায় সক্রিয় রয়েছে:</p>
+            
+            <div class="coverage-modern-wrapper">
+                <div class="coverage-badge-grid">
+                    <div class="coverage-pill"><i class="fa-solid fa-location-dot"></i> খলিশাখালী, সাতক্ষীরা</div>
+                    <div class="coverage-pill"><i class="fa-solid fa-location-dot"></i> পাটকেলঘাটা, সাতক্ষীরা</div>
+                    <div class="coverage-pill"><i class="fa-solid fa-location-dot"></i> কুমিরা, তালা</div>
+                </div>
+                <div style="text-align: center; border-top: 1px solid var(--border-color); padding-top: 20px;">
+                    <button class="see-all-btn" onclick="openCoverageModal()">সকল লোকেশন দেখুন</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ইমেইল বা মেসেজ সেকশন -->
+        <section>
+            <h2 class="section-title">আমাদের ইমেইল বা বার্তা পাঠান</h2>
+            <div style="max-width: 600px; margin: 0 auto;">
+                <div class="info-card contact-form">
+                    <h3><i class="fa-solid fa-envelope" style="color: #ef4444;"></i> কুইক মেসেজ</h3>
+                    <form action="mailto:alamit.info@gmail.com" method="POST" enctype="text/plain">
+                        <input type="text" name="name" placeholder="আপনার নাম" required>
+                        <input type="text" name="phone" placeholder="মোবাইল নম্বর" required>
+                        <textarea name="message" placeholder="আপনার বার্তা বা মতামত..." required></textarea>
+                        <button type="submit" class="btn" style="border: none; cursor: pointer; width: 100%;">সেন্ড করুন</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- Customer Reviews Section -->
+        <section class="reviews-section">
+            <div class="reviews-header">
+                <h2>Customer <span>Reviews</span></h2>
+                <p>Join thousands of satisfied users who experience the exceptional reliability and speed of AlamIT.net every day.</p>
+            </div>
+            <div class="reviews-grid">
+                <div class="review-card-modern">
+                    <div>
+                        <div class="review-stars">
+                            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                        </div>
+                        <p>"AlamIT.net has completely transformed our work-from-home experience. The speeds are incredible and the connection is rock solid."</p>
+                    </div>
+                    <div class="reviewer-info">
+                        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80" alt="Reviewer" class="reviewer-img">
+                        <div class="reviewer-details">
+                            <h5>Md. Mohsin</h5>
+                            <span>Freelancer</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="review-card-modern">
+                    <div>
+                        <div class="review-stars">
+                            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                        </div>
+                        <p>"We switched our business to AlamIT.net and couldn't be happier. Their support team is responsive and the uptime guarantee gives us peace of mind."</p>
+                    </div>
+                    <div class="reviewer-info">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=150&q=80" alt="Reviewer" class="reviewer-img">
+                        <div class="reviewer-details">
+                            <h5>Tanvir Ahmed</h5>
+                            <span>Entrepreneur</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+
+    <!-- ==========================================
+         PAGE 2: WHY CHOOSE US
+         ========================================== -->
+    <div id="page-why-choose" class="page-view">
+        <section>
+            <h2 class="section-title">কেন আমাদের ইন্টারনেট সংযোগ নেবেন?</h2>
+            <p style="text-align: center; max-width: 700px; margin: 0 auto 35px auto; font-size: 16px;">আমাদের রয়েছে অত্যাধুনিক ফাইবার অপটিক নেটওয়ার্ক যা আপনাকে দিচ্ছে নিরবচ্ছিন্ন হাই-স্পিড ইন্টারনেট অভিজ্ঞতা।</p>
+            <div class="why-choose-container">
+                <div class="why-choose-card">
+                    <i class="fa-solid fa-gauge-high"></i>
+                    <h4>হাই-স্পিড ব্যান্ডউইথ</h4>
+                    <p>অন্যান্য আইএসপি-র স্লো স্পিড ও ব্রাউজিং ল্যাগ থেকে মুক্তি; পান সুপার-ফাস্ট ও স্মুথ অভিজ্ঞতা।</p>
+                </div>
+                <div class="why-choose-card">
+                    <i class="fa-solid fa-network-wired"></i>
+                    <h4>১০০ এমবিপিএস BDIX</h4>
+                    <p>লোকাল ডাটা ট্রান্সফার, মুভি ও সফটওয়্যার ডাউনলোডের জন্য ডেডিকেটেড ১০০ এমবিপিএস BDIX স্পিড।</p>
+                </div>
+                <div class="why-choose-card">
+                    <i class="fa-solid fa-play"></i>
+                    <h4>বাফারলেস ইউটিউব ও ফেসবুক</h4>
+                    <p>পিক আওয়ারেও কোনো লোডিং বা বাফারিং ছাড়া হাই-ডেফিনিশন ভিডিও স্ট্রিমিং ও ব্রাউজিং।</p>
+                </div>
+                <div class="why-choose-card">
+                    <i class="fa-solid fa-gamepad"></i>
+                    <h4>ল্যাগ-ফ্রি অনলাইন গেমিং</h4>
+                    <p>লো পিং এবং জিরো প্যাকেট লস-এর সুবাদে ফ্রি ফায়ার, পাবজি কিংবা পিসি গেম খেলুন বাধাহীনভাবে।</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+
+    <!-- ==========================================
+         PAGE 3: PACKAGES
+         ========================================== -->
+    <div id="page-packages" class="page-view">
+        <section>
+            <h2 class="section-title">সকল ইন্টারনেট প্যাকেজসমূহ</h2>
+            <p style="text-align: center; max-width: 650px; margin: 0 auto 35px auto; font-size: 16px;">আপনার প্রয়োজন অনুযায়ী সাশ্রয়ী মূল্যে সেরা গতির ইন্টারনেট প্যাকেজ সিলেক্ট করুন।</p>
+            <div class="pricing-grid">
+                <div class="price-card">
+                    <h3>২৫ এমবিপিএস</h3>
+                    <div class="price">৫০০ টাকা <span>/মাস</span></div>
+                    <ul class="features-list">
+                        <li><i class="fa-solid fa-bolt"></i> Speed: 25 Mbps</li>
+                        <li><i class="fa-solid fa-network-wired" style="color:var(--primary);"></i> BDIX: 100 Mbps</li>
+                        <li><i class="fa-brands fa-youtube"></i> YouTube: 100 Mbps</li>
+                        <li><i class="fa-brands fa-facebook"></i> Facebook: 100 Mbps</li>
+                    </ul>
+                    <a onclick="switchPage('helpline')" class="btn">সংযোগ নিন</a>
+                </div>
+                <div class="price-card">
+                    <h3>৩০ এমবিপিএস</h3>
+                    <div class="price">৬৫০ টাকা <span>/মাস</span></div>
+                    <ul class="features-list">
+                        <li><i class="fa-solid fa-bolt"></i> Speed: 30 Mbps</li>
+                        <li><i class="fa-solid fa-network-wired" style="color:var(--primary);"></i> BDIX: 100 Mbps</li>
+                        <li><i class="fa-brands fa-youtube"></i> YouTube: 100 Mbps</li>
+                        <li><i class="fa-brands fa-facebook"></i> Facebook: 100 Mbps</li>
+                    </ul>
+                    <a onclick="switchPage('helpline')" class="btn">সংযোগ নিন</a>
+                </div>
+                <div class="price-card">
+                    <h3>৪০ এমবিপিএস</h3>
+                    <div class="price">৭০০ টাকা <span>/মাস</span></div>
+                    <ul class="features-list">
+                        <li><i class="fa-solid fa-bolt"></i> Speed: 40 Mbps</li>
+                        <li><i class="fa-solid fa-network-wired" style="color:var(--primary);"></i> BDIX: 100 Mbps</li>
+                        <li><i class="fa-brands fa-youtube"></i> YouTube: 100 Mbps</li>
+                        <li><i class="fa-brands fa-facebook"></i> Facebook: 100 Mbps</li>
+                    </ul>
+                    <a onclick="switchPage('helpline')" class="btn">সংযোগ নিন</a>
+                </div>
+                <div class="price-card">
+                    <h3>৫০ এমবিপিএস</h3>
+                    <div class="price">৮০০ টাকা <span>/মাস</span></div>
+                    <ul class="features-list">
+                        <li><i class="fa-solid fa-bolt"></i> Speed: 50 Mbps</li>
+                        <li><i class="fa-solid fa-network-wired" style="color:var(--primary);"></i> BDIX: 100 Mbps</li>
+                        <li><i class="fa-brands fa-youtube"></i> YouTube: 100 Mbps</li>
+                        <li><i class="fa-brands fa-facebook"></i> Facebook: 100 Mbps</li>
+                    </ul>
+                    <a onclick="switchPage('helpline')" class="btn">সংযোগ নিন</a>
+                </div>
+            </div>
+        </section>
+    </div>
+
+
+    <!-- ==========================================
+         PAGE 4: HELPLINE & PAYMENT
+         ========================================== -->
+    <div id="page-helpline" class="page-view">
+        <section>
+            <h2 class="section-title">হেল্পলাইন ও পেমেন্ট তথ্য</h2>
+            <div class="info-grid">
+                <div class="info-card">
+                    <h3><i class="fa-solid fa-headset" style="color: var(--primary);"></i> হেল্পলাইন নম্বর</h3>
+                    <p style="font-size: 14px; color: var(--text-color); margin-bottom: 15px;">যেকোনো সমস্যায় আমাদের কল করুন:</p>
+                    <div class="helpline-item">
+                        <div class="helpline-left"><i class="fa-solid fa-phone-volume"></i><span>01338-190872</span></div>
+                        <button class="copy-btn" onclick="copyToClipboard('01338-190872')">কপি</button>
+                    </div>
+                    <div class="helpline-item">
+                        <div class="helpline-left"><i class="fa-solid fa-phone-volume"></i><span>01338-190873</span></div>
+                        <button class="copy-btn" onclick="copyToClipboard('01338-190873')">কপি</button>
+                    </div>
+                    <div class="helpline-item">
+                        <div class="helpline-left"><i class="fa-solid fa-phone-volume"></i><span>01338-190874</span></div>
+                        <button class="copy-btn" onclick="copyToClipboard('01338-190874')">কপি</button>
+                    </div>
+                </div>
+
+                <div class="info-card">
+                    <h3><i class="fa-solid fa-wallet" style="color: var(--accent);"></i> পেমেন্ট নম্বর</h3>
+                    <div class="payment-box">
+                        <div class="payment-logos">
+                            <span class="payment-badge badge-bkash">বিকাশ</span>
+                            <span class="payment-badge badge-nagad">নগদ</span>
+                            <span class="payment-badge badge-rocket">রকেট</span>
+                        </div>
+                        <div class="payment-number-row">
+                            <span style="font-weight: 700; font-size: 16px; color: var(--dark);">01858141013</span>
+                            <button class="copy-btn" onclick="copyToClipboard('01858141013')">কপি</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+
+    <!-- ==========================================
+         PAGE 5: IPTV & APPS
+         ========================================== -->
+    <div id="page-iptv" class="page-view">
+        <section>
+            <div class="iptv-section">
+                <h2 class="section-title" style="color: #fff; margin-bottom: 15px;">প্রিমিয়াম লাইভ টিভি ও এন্টারটেইনমেন্ট জোন</h2>
+                <p style="text-align: center; color: #e0f2fe; max-width: 750px; margin: 0 auto 20px auto; font-size: 16px; line-height: 1.6;">
+                    আমাদের ইন্টারনেট গ্রাহকদের জন্য আমরা নিয়ে এসেছি এইচডি কোয়ালিটির এক্সক্লুসিভ আইপিটিভি (IPTV) ও স্ট্রিমিং সুবিধা। দেশি-বিদেশী লাইভ নিউজ, খেলাধুলা, কার্টুন এবং ব্লকবাস্টার মুভি উপভোগ করুন কোনো প্রকার ল্যাগ বা বাফারিং ছাড়াই।
+                </p>
+                <p style="text-align: center; color: #bae6fd; max-width: 650px; margin: 0 auto 35px auto; font-size: 14px;">
+                    আপনার পছন্দমতো স্মার্ট ডিভাইস বা কম্পিউটারের জন্য নিচে দেওয়া অ্যাপগুলো ডাউনলোড করে নিন।
+                </p>
+                
+                <div class="iptv-grid">
+                    <div class="app-download-box">
+                        <div>
+                            <i class="fa-solid fa-mobile-screen-button main-icon"></i>
+                            <h4>Android Mobile App</h4>
+                            <p>স্মার্টফোনে যেকোনো স্থান থেকে হাই-ডেফিনিশন লাইভ টিভি এবং অন-ডিমান্ড ভিডিও স্ট্রিমিংয়ের জন্য আমাদের অ্যান্ড্রয়েড অ্যাপ ব্যবহার করুন।</p>
+                        </div>
+                        <!-- 🔗 [এখানে আপনার অ্যান্ড্রয়েড মোবাইল অ্যাপের ডাউনলোড লিংক বসান] -->
+                        <a href="YOUR_MOBILE_APP_DOWNLOAD_LINK_HERE" class="btn" style="width: 100%; text-align: center;"><i class="fa-solid fa-download"></i> Download App</a>
+                    </div>
+
+                    <div class="app-download-box">
+                        <div>
+                            <i class="fa-solid fa-tv main-icon"></i>
+                            <h4>Smart TV App (Televizor)</h4>
+                            <p>আপনার ঘরের বড় পর্দায় থিয়েটারের মতো বিনোদন পেতে <strong>Televizor</strong> অ্যাপটি ইনস্টল করুন এবং সেরা স্ট্রিমিং অভিজ্ঞতা পান।</p>
+                        </div>
+                        <div style="display: flex; flex-direction: column; gap: 10px; width: 100%;">
+                            <!-- 🔗 [এখানে আপনার স্মার্ট টিভি অ্যাপের লিংক বা প্লেস্টোর লিংক বসান] -->
+                            <a href="https://play.google.com/store/apps/details?id=com.televizor" target="_blank" class="btn" style="width: 100%; text-align: center;"><i class="fa-solid fa-download"></i> Download Televizor</a>
+                            <a onclick="switchPage('helpline')" class="btn" style="width: 100%; text-align: center; background: rgba(255,255,255,0.2); border: 1px solid rgba(255,255,255,0.4);"><i class="fa-solid fa-phone"></i> লাইন একটিভ করুন</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+
+    <!-- ==========================================
+         PAGE 6: CONTACT
+         ========================================== -->
+    <div id="page-contact" class="page-view">
+        <section>
+            <h2 class="section-title">যোগাযোগ করুন</h2>
+            <div style="max-width: 600px; margin: 0 auto;">
+                <div class="info-card contact-form">
+                    <h3><i class="fa-solid fa-envelope" style="color: #ef4444;"></i> বার্তা পাঠান</h3>
+                    <form action="mailto:alamit.info@gmail.com" method="POST" enctype="text/plain">
+                        <input type="text" name="name" placeholder="আপনার নাম" required>
+                        <input type="text" name="phone" placeholder="মোবাইল নম্বর" required>
+                        <textarea name="message" placeholder="আপনার বার্তা..." required></textarea>
+                        <button type="submit" class="btn" style="border: none; cursor: pointer; width: 100%;">সেন্ড করুন</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </div>
+
+
+    <!-- ==========================================
+         PAGE 7: REVIEWS
+         ========================================== -->
+    <div id="page-reviews" class="page-view">
+        <section class="reviews-section">
+            <div class="reviews-header">
+                <h2>Customer <span>Reviews</span></h2>
+                <p>Join thousands of satisfied users who experience the exceptional reliability and speed of AlamIT.net every day.</p>
+            </div>
+            <div class="reviews-grid">
+                <div class="review-card-modern">
+                    <div>
+                        <div class="review-stars">
+                            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                        </div>
+                        <p>"AlamIT.net has completely transformed our work-from-home experience. The speeds are incredible and the connection is rock solid."</p>
+                    </div>
+                    <div class="reviewer-info">
+                        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80" alt="Reviewer" class="reviewer-img">
+                        <div class="reviewer-details">
+                            <h5>Md. Mohsin</h5>
+                            <span>Freelancer</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="review-card-modern">
+                    <div>
+                        <div class="review-stars">
+                            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                        </div>
+                        <p>"We switched our business to AlamIT.net and couldn't be happier. Their support team is responsive and the uptime guarantee gives us peace of mind."</p>
+                    </div>
+                    <div class="reviewer-info">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=150&q=80" alt="Reviewer" class="reviewer-img">
+                        <div class="reviewer-details">
+                            <h5>Tanvir Ahmed</h5>
+                            <span>Entrepreneur</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+
+    <!-- ==========================================
+         PAGE 8: ABOUT US
+         ========================================== -->
+    <div id="page-about" class="page-view">
+        <section>
+            <h2 class="section-title">আমাদের সম্পর্কে</h2>
+            <div class="about-grid">
+                <div class="info-card" style="padding: 45px; text-align: left;">
+                    <div class="about-text">
+                        <p><strong>AlamIT.net</strong> হলো সাতক্ষীরা, বাংলাদেশ এলাকার অন্যতম সেরা ইন্টারনেট সার্ভিস প্রোভাইডার (ISP)। আমরা আমাদের গ্রাহকদের দিয়ে থাকি হাই-স্পিড ফাইবার অপটিক ব্রডব্যান্ড ইন্টারনেট সংযোগ।</p>
+                        <p>আমাদের প্রধান লক্ষ্য হলো প্রতিটি পরিবার এবং কর্পোরেট অফিসে নিরবচ্ছিন্ন, স্থিতিশীল এবং দ্রুত গতির ইন্টারনেট সেবা পৌঁছে দেওয়া। আমাদের ডেডিকেটেড সাপোর্ট টিম ২৪/৭ ঘণ্টা গ্রাহকদের সেবায় নিয়োজিত রয়েছে।</p>
+                        <p>আপনার ইন্টারনেট ব্যবহারের অভিজ্ঞতাকে আরও স্বস্তিদায়ক ও আধুনিক করতে আমরা সর্বদা আধুনিক প্রযুক্তির ফাইবার অপটিক নেটওয়ার্ক ব্যবহার করে থাকি।</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Modal Popup for All Packages -->
+    <div class="packages-modal" id="packagesModal">
+        <div class="packages-modal-content">
+            <button class="close-modal-btn" onclick="closeAllPackagesModal()"><i class="fa-solid fa-xmark"></i></button>
+            <h2 class="section-title" style="margin-bottom: 25px;">সকল ইন্টারনেট প্যাকেজ</h2>
+            <div class="pricing-grid">
+                <div class="price-card">
+                    <h3>২৫ এমবিপিএস</h3>
+                    <div class="price">৫০০ টাকা <span>/মাস</span></div>
+                    <ul class="features-list">
+                        <li><i class="fa-solid fa-bolt"></i> Speed: 25 Mbps</li>
+                        <li><i class="fa-solid fa-network-wired" style="color:var(--primary);"></i> BDIX: 100 Mbps</li>
+                        <li><i class="fa-brands fa-youtube"></i> YouTube: 100 Mbps</li>
+                        <li><i class="fa-brands fa-facebook"></i> Facebook: 100 Mbps</li>
+                    </ul>
+                    <a onclick="closeAllPackagesModal(); switchPage('helpline');" class="btn">সংযোগ নিন</a>
+                </div>
+                <div class="price-card">
+                    <h3>৩০ এমবিপিএস</h3>
+                    <div class="price">৬৫০ টাকা <span>/মাস</span></div>
+                    <ul class="features-list">
+                        <li><i class="fa-solid fa-bolt"></i> Speed: 30 Mbps</li>
+                        <li><i class="fa-solid fa-network-wired" style="color:var(--primary);"></i> BDIX: 100 Mbps</li>
+                        <li><i class="fa-brands fa-youtube"></i> YouTube: 100 Mbps</li>
+                        <li><i class="fa-brands fa-facebook"></i> Facebook: 100 Mbps</li>
+                    </ul>
+                    <a onclick="closeAllPackagesModal(); switchPage('helpline');" class="btn">সংযোগ নিন</a>
+                </div>
+                <div class="price-card">
+                    <h3>৪০ এমবিপিএস</h3>
+                    <div class="price">৭০০ টাকা <span>/মাস</span></div>
+                    <ul class="features-list">
+                        <li><i class="fa-solid fa-bolt"></i> Speed: 40 Mbps</li>
+                        <li><i class="fa-solid fa-network-wired" style="color:var(--primary);"></i> BDIX: 100 Mbps</li>
+                        <li><i class="fa-brands fa-youtube"></i> YouTube: 100 Mbps</li>
+                        <li><i class="fa-brands fa-facebook"></i> Facebook: 100 Mbps</li>
+                    </ul>
+                    <a onclick="closeAllPackagesModal(); switchPage('helpline');" class="btn">সংযোগ নিন</a>
+                </div>
+                <div class="price-card">
+                    <h3>৫০ এমবিপিএস</h3>
+                    <div class="price">৮০০ টাকা <span>/মাস</span></div>
+                    <ul class="features-list">
+                        <li><i class="fa-solid fa-bolt"></i> Speed: 50 Mbps</li>
+                        <li><i class="fa-solid fa-network-wired" style="color:var(--primary);"></i> BDIX: 100 Mbps</li>
+                        <li><i class="fa-brands fa-youtube"></i> YouTube: 100 Mbps</li>
+                        <li><i class="fa-brands fa-facebook"></i> Facebook: 100 Mbps</li>
+                    </ul>
+                    <a onclick="closeAllPackagesModal(); switchPage('helpline');" class="btn">সংযোগ নিন</a>
+                </div>
             </div>
         </div>
-    </section>
+    </div>
 
-    <!-- About Section -->
-    <section id="about">
-        <h2 class="section-title">আমাদের সম্পর্কে</h2>
-        <div class="about-grid">
-            <div class="about-text">
-                <p><strong>AlamIT.net</strong> হলো সাতক্ষীরা, বাংলাদেশ এলাকার অন্যতম সেরা ও প্রিমিয়াম ইন্টারনেট সার্ভিস প্রোভাইডার (ISP)। আমাদের অবস্থান সাতক্ষীরা, বাংলাদেশ। আমরা আমাদের গ্রাহকদের দিয়ে থাকি হাই-স্পিড ব্রডব্যান্ড ইন্টারনেট সংযোগ।</p>
-                <p>আমাদের রয়েছে সর্বাধুনিক প্রযুক্তির ফাইবার অপটিক নেটওয়ার্ক। কেন আমাদের গতি এবং মাধ্যম সেরা? কারণ আমরা মানে আপস করি না, শতভাগ আস্থার সাথে সেবা প্রদানই আমাদের মূল লক্ষ্য।</p>
+    <!-- Modal Popup for All Coverage Locations -->
+    <div class="packages-modal" id="coverageModal">
+        <div class="packages-modal-content">
+            <button class="close-modal-btn" onclick="closeCoverageModal()"><i class="fa-solid fa-xmark"></i></button>
+            <h2 class="section-title" style="margin-bottom: 25px;">আমাদের সকল কভারেজ এলাকা</h2>
+            <div class="coverage-grid">
+                <div class="coverage-card">
+                    <i class="fa-solid fa-location-dot"></i>
+                    <h4>খলিশাখালী</h4>
+                    <p>সাতক্ষীরা, বাংলাদেশ</p>
+                </div>
+                <div class="coverage-card">
+                    <i class="fa-solid fa-location-dot"></i>
+                    <h4>পাটকেলঘাটা</h4>
+                    <p>সাতক্ষীরা, বাংলাদেশ</p>
+                </div>
+                <div class="coverage-card">
+                    <i class="fa-solid fa-location-dot"></i>
+                    <h4>কুমিরা</h4>
+                    <p>তালা, সাতক্ষীরা</p>
+                </div>
+                <div class="coverage-card">
+                    <i class="fa-solid fa-location-dot"></i>
+                    <h4>তালা সদর</h4>
+                    <p>সাতক্ষীরা</p>
+                </div>
+                <div class="coverage-card">
+                    <i class="fa-solid fa-location-dot"></i>
+                    <h4>সরুলিয়া</h4>
+                    <p>পাটকেলঘাটা</p>
+                </div>
+                <div class="coverage-card">
+                    <i class="fa-solid fa-location-dot"></i>
+                    <h4>কুশখালী</h4>
+                    <p>সাতক্ষীরা</p>
+                </div>
             </div>
         </div>
-    </section>
+    </div>
 
-    <!-- Toast Notification Element -->
-    <div id="toast-notification">নম্বর কপি করা সফল হয়েছে!</div>
+    <div id="toast-notification">সফলভাবে সম্পন্ন হয়েছে!</div>
 
-    <!-- Footer -->
+    <!-- Footer Section -->
     <footer>
-        <p>&copy; 2026 AlamIT.net | সাতক্ষীরা, বাংলাদেশ। সর্বস্বত্ব সংরক্ষিত।</p>
+        <div class="footer-compact-grid">
+            <div class="footer-cols-wrapper">
+                <div class="footer-col">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a onclick="switchPage('about')">About Us</a></li>
+                        <li><a onclick="switchPage('why-choose')">Services</a></li>
+                        <li><a onclick="switchPage('packages')">Packages</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Support & Legal</h4>
+                    <ul>
+                        <li><a onclick="switchPage('contact')">Contact</a></li>
+                        <li><a onclick="switchPage('helpline')">FAQ & Help</a></li>
+                        <li><a onclick="switchPage('helpline')">Privacy Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-info-compact">
+            <div class="footer-info-compact-item">
+                <i class="fa-solid fa-phone"></i>
+                <span>+880 1338-190872</span>
+            </div>
+            <div class="footer-info-compact-item">
+                <i class="fa-solid fa-envelope"></i>
+                <span>alamit.info@gmail.com</span>
+            </div>
+            <div class="footer-info-compact-item">
+                <i class="fa-solid fa-location-dot"></i>
+                <span>Khalishkhali, Patkelghata, Satkhira</span>
+            </div>
+        </div>
+
+        <div class="footer-social-row">
+            <span class="footer-social-title">Connect Now</span>
+            <div class="footer-social-icons">
+                <!-- 🔗 [এখানে আপনার ফেসবুক পেজের লিংক বসান] -->
+                <a href="https://facebook.com/YOUR_FACEBOOK_PAGE" target="_blank" title="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+                <!-- 🔗 [এখানে আপনার ইন্সটাগ্রাম প্রোফাইলের লিংক বসান] -->
+                <a href="https://instagram.com/YOUR_INSTAGRAM_PROFILE" target="_blank" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                <!-- 🔗 [এখানে আপনার ইউটিউব চ্যানেলের লিংক বসান] -->
+                <a href="https://youtube.com/YOUR_YOUTUBE_CHANNEL" target="_blank" title="YouTube"><i class="fa-brands fa-youtube"></i></a>
+                <!-- 🔗 [এখানে আপনার লিঙ্কডইন প্রোফাইলের লিংক বসান] -->
+                <a href="https://linkedin.com/YOUR_LINKEDIN_PROFILE" target="_blank" title="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+            </div>
+        </div>
+
+        <div class="footer-bottom-text">
+            <p>&copy; 2026 AlamIT.net | All rights reserved.</p>
+        </div>
     </footer>
+
+    <!-- Floating Chat Widget & Scroll to Top Button -->
+    <div class="floating-chat-container">
+        <div class="chat-popup-box" id="chatPopupBox">
+            <div class="chat-popup-header">
+                <h4>Hi there! 👋</h4>
+                <button class="chat-close-btn" onclick="toggleChatPopup()"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <p>আমাদের সাথে লাইভ চ্যাট করতে নিচে যেকোনো মাধ্যমে যোগাযোগ করুন:</p>
+            <div class="chat-options">
+                <!-- 🔗 [এখানে আপনার ফেসবুক পেজ মেসেঞ্জার বা চ্যাট লিংক বসান] -->
+                <a href="https://m.me/YOUR_FACEBOOK_PAGE" target="_blank" class="chat-option-btn messenger">
+                    <i class="fa-brands fa-facebook-messenger" style="font-size: 18px;"></i> Messenger
+                </a>
+                <!-- 🔗 [এখানে আপনার হোয়াটসঅ্যাপ নম্বর কান্ট্রি কোড সহ বসান, যেমন: wa.me/8801338190872] -->
+                <a href="https://wa.me/8801338190872" target="_blank" class="chat-option-btn whatsapp">
+                    <i class="fa-brands fa-whatsapp" style="font-size: 18px;"></i> WhatsApp
+                </a>
+            </div>
+        </div>
+
+        <button class="chat-toggle-main-btn" id="chatToggleBtn" onclick="toggleChatPopup()" title="Live Chat">
+            <i class="fa-solid fa-comment-dots" id="chatBtnIcon"></i>
+        </button>
+
+        <button class="scroll-top-btn" id="scrollTopBtn" onclick="scrollToTop()" title="উপরে যান">
+            <i class="fa-solid fa-chevron-up"></i>
+        </button>
+    </div>
 
     <!-- JavaScript -->
     <script>
@@ -846,44 +1914,137 @@
             menu.style.display = menu.style.display === 'flex' ? 'none' : 'flex';
         }
 
+        function switchPage(pageId) {
+            const pages = document.querySelectorAll('.page-view');
+            pages.forEach(page => {
+                page.classList.remove('active-page');
+            });
+
+            const targetPage = document.getElementById('page-' + pageId);
+            if (targetPage) {
+                targetPage.classList.add('active-page');
+            }
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function toggleTheme() {
+            const html = document.documentElement;
+            const themeIcon = document.getElementById('themeIcon');
+            
+            if (html.getAttribute('data-theme') === 'light') {
+                html.setAttribute('data-theme', 'dark');
+                themeIcon.className = 'fa-solid fa-sun';
+                localStorage.setItem('theme', 'dark');
+            } else {
+                html.setAttribute('data-theme', 'light');
+                themeIcon.className = 'fa-solid fa-moon';
+                localStorage.setItem('theme', 'light');
+            }
+        }
+
+        window.onload = function() {
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            document.documentElement.setAttribute('data-theme', savedTheme);
+            const themeIcon = document.getElementById('themeIcon');
+            if (savedTheme === 'dark') {
+                themeIcon.className = 'fa-solid fa-sun';
+            }
+        }
+
         function copyToClipboard(text) {
             navigator.clipboard.writeText(text).then(() => {
-                showToast();
-            }).catch(err => {
-                let textArea = document.createElement("textarea");
-                textArea.value = text;
-                document.body.appendChild(textArea);
-                textArea.select();
-                try {
-                    document.execCommand('copy');
-                    showToast();
-                } catch (err) {
-                    alert('কপি করা সম্ভব হয়নি!');
-                }
-                document.body.removeChild(textArea);
+                showToast("নম্বর কপি করা সফল হয়েছে!");
             });
         }
 
-        function showToast() {
+        function showToast(msg) {
             const toast = document.getElementById("toast-notification");
+            toast.innerText = msg;
             toast.className = "show";
-            setTimeout(function() {
-                toast.className = "";
-            }, 3000);
+            setTimeout(() => { toast.className = ""; }, 3000);
         }
 
-        // Hero Slider Script
         let currentSlide = 0;
-        const slides = document.querySelectorAll('.slide');
-        
-        function nextSlide() {
-            slides[currentSlide].classList.remove('active');
-            currentSlide = (currentSlide + 1) % slides.length;
+        const slides = document.querySelectorAll('.banner-slide');
+        const dots = document.querySelectorAll('.dot');
+        let bannerInterval;
+
+        function showBannerSlide(index) {
+            if(slides.length === 0) return;
+            slides.forEach((slide, i) => {
+                slide.classList.remove('active');
+                if(dots[i]) dots[i].classList.remove('active');
+            });
+            currentSlide = (index + slides.length) % slides.length;
             slides[currentSlide].classList.add('active');
+            if(dots[currentSlide]) dots[currentSlide].classList.add('active');
         }
 
-        setInterval(nextSlide, 4500);
-    </script>
+        function nextBannerSlide() { showBannerSlide(currentSlide + 1); }
+        function currentBannerSlide(index) { showBannerSlide(index); resetBannerTimer(); }
+        function resetBannerTimer() { clearInterval(bannerInterval); bannerInterval = setInterval(nextBannerSlide, 3500); }
+        bannerInterval = setInterval(nextBannerSlide, 3500);
 
+        const packageSlider = document.getElementById('packageSlider');
+        let packageIndex = 0;
+        let packageInterval;
+
+        function autoSlidePackages() {
+            if (window.innerWidth <= 900 && packageSlider) {
+                const totalCards = packageSlider.children.length;
+                packageIndex = (packageIndex + 1) % totalCards;
+                const cardWidth = packageSlider.querySelector('.price-card').offsetWidth;
+                packageSlider.scrollTo({ left: packageIndex * cardWidth, behavior: 'smooth' });
+            }
+        }
+
+        function manualSlide(direction) {
+            if (packageSlider) {
+                clearInterval(packageInterval);
+                const totalCards = packageSlider.children.length;
+                packageIndex = (packageIndex + direction + totalCards) % totalCards;
+                const cardWidth = packageSlider.querySelector('.price-card').offsetWidth;
+                packageSlider.scrollTo({ left: packageIndex * cardWidth, behavior: 'smooth' });
+                packageInterval = setInterval(autoSlidePackages, 3000);
+            }
+        }
+
+        packageInterval = setInterval(autoSlidePackages, 3000);
+
+        function openAllPackagesModal() { document.getElementById('packagesModal').style.display = 'flex'; }
+        function closeAllPackagesModal() { document.getElementById('packagesModal').style.display = 'none'; }
+
+        function openCoverageModal() { document.getElementById('coverageModal').style.display = 'flex'; }
+        function closeCoverageModal() { document.getElementById('coverageModal').style.display = 'none'; }
+
+        function toggleChatPopup() {
+            const chatBox = document.getElementById('chatPopupBox');
+            const chatIcon = document.getElementById('chatBtnIcon');
+            if (chatBox.style.display === 'block') {
+                chatBox.style.display = 'none';
+                chatIcon.className = 'fa-solid fa-comment-dots';
+            } else {
+                chatBox.style.display = 'block';
+                chatIcon.className = 'fa-solid fa-xmark';
+            }
+        }
+
+        window.onscroll = function() {
+            const scrollTopBtn = document.getElementById('scrollTopBtn');
+            if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
+                scrollTopBtn.style.display = 'flex';
+            } else {
+                scrollTopBtn.style.display = 'none';
+            }
+        };
+
+        function scrollToTest() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+    </script>
 </body>
-</html>
+                                    </html>
